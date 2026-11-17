@@ -16,7 +16,7 @@ Turning an English request into SQL with the OpenAI API and returning the result
 
 ## How to run it (Google Colab)
 
-1. Put the repo folder in Google Drive as `MyDrive/e89_Hussein_Jawad_HW10`. If it's somewhere else, change `PROJECT_DIR` in the notebook.
+1. Put the repo folder in Google Drive as `MyDrive/CSCI-E-89-1-Deep-Learning/HW10`. If it's somewhere else, change `PROJECT_DIR` in the notebook.
 2. Make a `.env` file in that folder (same folder as the notebook):
    ```
    OPENAI_API_KEY=sk-...
@@ -26,7 +26,7 @@ Turning an English request into SQL with the OpenAI API and returning the result
 3. Open the notebook in Colab and run all cells (**Runtime → Run all**). The Drive cell asks for permission to mount Drive and then checks that `.env` is found.
 4. Export to HTML by running this in a cell:
    ```bash
-   !jupyter nbconvert --to html "/content/drive/MyDrive/e89_Hussein_Jawad_HW10/Hussein_Jawad_HW10_Problem1.ipynb"
+   !jupyter nbconvert --to html "/content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10/Hussein_Jawad_HW10_Problem1.ipynb"
    ```
 
 ## Running it locally
