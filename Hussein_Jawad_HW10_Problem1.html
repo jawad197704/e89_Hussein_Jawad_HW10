@@ -7830,7 +7830,6 @@ a.anchor-link {
 <pre><code>OPENAI_API_KEY=sk-...
 OPENAI_KEY_NAME=e89-hw10-key
 </code></pre>
-<!-- Paste the screenshot of the API keys page here (in Colab you can drag the image into this cell) -->
 </div>
 </div>
 </div>
@@ -7853,7 +7852,8 @@ OPENAI_KEY_NAME=e89-hw10-key
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">openai</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Part a: install the OpenAI Python library and python-dotenv (reads the .env file)</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">openai</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span>
 </pre></div>
 </div>
 </div>
@@ -7866,7 +7866,7 @@ OPENAI_KEY_NAME=e89-hw10-key
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>I run the notebook in Google Colab, and the notebook and <code>.env</code> file are in my Google Drive folder. Colab starts in <code>/content</code>, so I mount Drive and change into that folder first. When the notebook runs locally, this cell does nothing.</p>
+<p>I run the notebook in Google Colab, and the notebook and <code>.env</code> file are in my Google Drive folder. Colab starts in <code>/content</code>, so I mount Drive and change into that folder first. If the notebook runs on my own computer instead, the Drive part is skipped.</p>
 </div>
 </div>
 </div>
@@ -7878,19 +7878,19 @@ OPENAI_KEY_NAME=e89-hw10-key
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>   <span class="c1"># file and folder functions</span>
 
-<span class="n">PROJECT_DIR</span> <span class="o">=</span> <span class="s2">"/content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10"</span>   <span class="c1"># folder in Google Drive with this notebook and .env</span>
+<span class="n">PROJECT_DIR</span> <span class="o">=</span> <span class="s2">"/content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10"</span>   <span class="c1"># Drive folder with this notebook and .env</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
-    <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">"/content/drive"</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">PROJECT_DIR</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>   <span class="c1"># this import only works inside Colab</span>
+    <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">"/content/drive"</span><span class="p">)</span>    <span class="c1"># connect my Google Drive to the Colab machine</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">PROJECT_DIR</span><span class="p">)</span>            <span class="c1"># work inside the project folder so .env is found</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>   <span class="c1"># not running in Colab</span>
+    <span class="k">pass</span>                             <span class="c1"># not in Colab: stay in the current folder</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Working folder:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">".env found    :"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">".env"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Working folder:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>               <span class="c1"># show the folder we are working in</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">".env found    :"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">".env"</span><span class="p">))</span>    <span class="c1"># check that the key file is there</span>
 </pre></div>
 </div>
 </div>
@@ -7930,24 +7930,25 @@ Working folder: /content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>                                     <span class="c1"># convert between JSON text and Python dictionaries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>                                   <span class="c1"># the OpenAI library (used here to print its version)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>     <span class="c1"># read variables from the .env file</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>                       <span class="c1"># the client class used for all API calls</span>
 
-<span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">(</span><span class="n">usecwd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">(</span><span class="n">usecwd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># load OPENAI_API_KEY and OPENAI_KEY_NAME from .env</span>
 
-<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"gpt-5.4"</span>
-<span class="n">SMALL_MODEL</span> <span class="o">=</span> <span class="s2">"gpt-5.4-mini"</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>   <span class="c1"># reads OPENAI_API_KEY from the environment</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"gpt-5.4"</span>               <span class="c1"># main model</span>
+<span class="n">SMALL_MODEL</span> <span class="o">=</span> <span class="s2">"gpt-5.4-mini"</span>    <span class="c1"># smaller, cheaper model used for comparison in part c</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>               <span class="c1"># create the client; it reads OPENAI_API_KEY from the environment</span>
 
-<span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">key</span><span class="p">,</span> <span class="s2">"OPENAI_API_KEY not found - check the .env file"</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"openai version:"</span><span class="p">,</span> <span class="n">openai</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Key name      :"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_KEY_NAME"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Key           :"</span><span class="p">,</span> <span class="n">key</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"..."</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:])</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">)</span>                                 <span class="c1"># get the key that was loaded</span>
+<span class="k">assert</span> <span class="n">key</span><span class="p">,</span> <span class="s2">"OPENAI_API_KEY not found - check the .env file"</span>      <span class="c1"># stop here if the key is missing</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"openai version:"</span><span class="p">,</span> <span class="n">openai</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>                      <span class="c1"># library version</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Key name      :"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_KEY_NAME"</span><span class="p">))</span>            <span class="c1"># the name I gave the key</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Key           :"</span><span class="p">,</span> <span class="n">key</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"..."</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:])</span>              <span class="c1"># masked key, never the full key</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">show_json</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># print an API response object as a readable dictionary (helper from the lab notebooks)</span>
     <span class="n">display</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">()))</span>
 </pre></div>
 </div>
@@ -7988,7 +7989,9 @@ Key           : sk-...iIoA
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="n">SCHEMA</span> <span class="o">=</span> <span class="s1">'''</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Table definitions given to the model. The assignment doesn't give a schema, so I made one:</span>
+<span class="c1"># DateOfBirth gives the birth month and the age; the Orders table is not needed for this request.</span>
+<span class="n">SCHEMA</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="s1">CREATE TABLE Customers (</span>
 <span class="s1">  CustomerID   INTEGER PRIMARY KEY,</span>
 <span class="s1">  FirstName    VARCHAR(50),</span>
@@ -8006,8 +8009,9 @@ Key           : sk-...iIoA
 <span class="s1">  OrderDate    DATE,</span>
 <span class="s1">  TotalAmount  DECIMAL(10, 2)</span>
 <span class="s1">);</span>
-<span class="s1">'''</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="s1">'''</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>   <span class="c1"># remove the empty first and last lines</span>
 
+<span class="c1"># The English request from the assignment, word for word</span>
 <span class="n">REQUEST</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"Select all customers who are born in either June, July, October, live in Boston, "</span>
            <span class="s2">"are senior citizens and hence qualify for Medicare benefit"</span><span class="p">)</span>
 </pre></div>
@@ -8034,20 +8038,22 @@ Key           : sk-...iIoA
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="n">baseline_messages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># First prompt, same pattern as the SQL example in the lab:</span>
+<span class="c1"># the tables go in the system message and the request in the user message</span>
+<span class="n">baseline_messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span>                                   <span class="c1"># system message: instructions + tables</span>
      <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"Given the following SQL tables, your job is to write queries given a user's request.</span><span class="se">\n\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">SCHEMA</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">REQUEST</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">REQUEST</span><span class="p">},</span>                <span class="c1"># user message: the English request</span>
 <span class="p">]</span>
 
-<span class="n">baseline_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
-    <span class="nb">input</span><span class="o">=</span><span class="n">baseline_messages</span><span class="p">,</span>
-    <span class="n">reasoning</span><span class="o">=</span><span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">},</span>   <span class="c1"># needed to be able to set temperature</span>
-    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">max_output_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="n">baseline_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>   <span class="c1"># send the request to OpenAI</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>                                <span class="c1"># gpt-5.4</span>
+    <span class="nb">input</span><span class="o">=</span><span class="n">baseline_messages</span><span class="p">,</span>                    <span class="c1"># the two messages above</span>
+    <span class="n">reasoning</span><span class="o">=</span><span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">},</span>               <span class="c1"># no reasoning, so temperature can be set</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>                              <span class="c1"># least random, most consistent output</span>
+    <span class="n">max_output_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>                     <span class="c1"># upper limit on the answer length</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">baseline_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">baseline_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>            <span class="c1"># the model's answer as plain text</span>
 </pre></div>
 </div>
 </div>
@@ -8114,7 +8120,10 @@ WHERE City = 'Boston'
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'''</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Better prompt (system message): the tables inside &lt;schema&gt; tags plus clear rules.</span>
+<span class="c1"># The rules fix the problems of the first prompt: they name the database (SQLite), say how dates</span>
+<span class="c1"># are stored, define "Boston", ask for the exact age, and ask for the conditions before the SQL.</span>
+<span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'''</span>
 <span class="s1">You are an expert SQL developer. Translate the request delimited by &lt;request&gt;&lt;/request&gt;</span>
 <span class="s1">into one SQL query for this database:</span>
 
@@ -8131,19 +8140,21 @@ WHERE City = 'Boston'
 <span class="s1">- "Select all customers" means return all columns.</span>
 <span class="s1">- First list the conditions you found in the request, then write the query.</span>
 <span class="s1">- If the request can't be answered with these tables, set "sql" to null and explain why.</span>
-<span class="s1">'''</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="s1">'''</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>   <span class="c1"># remove the empty first and last lines</span>
 
+<span class="c1"># JSON schema that the answer must follow (Structured Outputs)</span>
 <span class="n">SQL_JSON_SCHEMA</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>                                                    <span class="c1"># the answer is one JSON object</span>
     <span class="s2">"properties"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"conditions"</span><span class="p">:</span>  <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}},</span>
-        <span class="s2">"assumptions"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}},</span>
-        <span class="s2">"sql"</span><span class="p">:</span>         <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="s2">"null"</span><span class="p">]},</span>
-        <span class="s2">"explanation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>
+        <span class="s2">"conditions"</span><span class="p">:</span>  <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}},</span>   <span class="c1"># conditions found in the request</span>
+        <span class="s2">"assumptions"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}},</span>   <span class="c1"># e.g. Medicare means age 65+</span>
+        <span class="s2">"sql"</span><span class="p">:</span>         <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="s2">"null"</span><span class="p">]},</span>                     <span class="c1"># the query, or null if not possible</span>
+        <span class="s2">"explanation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">},</span>                               <span class="c1"># how the query works</span>
     <span class="p">},</span>
-    <span class="s2">"required"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"conditions"</span><span class="p">,</span> <span class="s2">"assumptions"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"explanation"</span><span class="p">],</span>
-    <span class="s2">"additionalProperties"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">"required"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"conditions"</span><span class="p">,</span> <span class="s2">"assumptions"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"explanation"</span><span class="p">],</span>     <span class="c1"># all four fields must be there</span>
+    <span class="s2">"additionalProperties"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>                                       <span class="c1"># no other fields allowed</span>
 <span class="p">}</span>
+<span class="c1"># Tell the API to force the answer into this schema (strict = always matches the schema)</span>
 <span class="n">TEXT_FORMAT</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"json_schema"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"nl_to_sql"</span><span class="p">,</span>
                           <span class="s2">"schema"</span><span class="p">:</span> <span class="n">SQL_JSON_SCHEMA</span><span class="p">,</span> <span class="s2">"strict"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
 </pre></div>
@@ -8171,24 +8182,26 @@ WHERE City = 'Boston'
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_sql</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="s2">"none"</span><span class="p">):</span>
+    <span class="c1"># Send one request and return the full response object.</span>
+    <span class="c1"># prompt is "baseline" (first prompt) or "engineered" (better prompt with a JSON answer).</span>
     <span class="k">if</span> <span class="n">prompt</span> <span class="o">==</span> <span class="s2">"baseline"</span><span class="p">:</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">baseline_messages</span><span class="p">}</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="n">baseline_messages</span><span class="p">}</span>                                       <span class="c1"># first prompt, plain-text answer</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">SYSTEM_PROMPT</span><span class="p">},</span>
-                          <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"&lt;request&gt;</span><span class="si">{</span><span class="n">REQUEST</span><span class="si">}</span><span class="s2">&lt;/request&gt;"</span><span class="p">}],</span>
-                <span class="s2">"text"</span><span class="p">:</span> <span class="n">TEXT_FORMAT</span><span class="p">}</span>
-    <span class="k">if</span> <span class="n">effort</span> <span class="o">==</span> <span class="s2">"none"</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">temperature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="s2">"temperature"</span><span class="p">]</span> <span class="o">=</span> <span class="n">temperature</span>
-        <span class="k">if</span> <span class="n">top_p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>       <span class="n">args</span><span class="p">[</span><span class="s2">"top_p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_p</span>
-    <span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">1000</span> <span class="k">if</span> <span class="n">effort</span> <span class="o">==</span> <span class="s2">"none"</span> <span class="k">else</span> <span class="mi">4000</span>   <span class="c1"># reasoning tokens count too</span>
-    <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">reasoning</span><span class="o">=</span><span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="n">effort</span><span class="p">},</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"input"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">SYSTEM_PROMPT</span><span class="p">},</span>           <span class="c1"># rules + tables</span>
+                          <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"&lt;request&gt;</span><span class="si">{</span><span class="n">REQUEST</span><span class="si">}</span><span class="s2">&lt;/request&gt;"</span><span class="p">}],</span>   <span class="c1"># request inside tags</span>
+                <span class="s2">"text"</span><span class="p">:</span> <span class="n">TEXT_FORMAT</span><span class="p">}</span>                                              <span class="c1"># force the JSON schema</span>
+    <span class="k">if</span> <span class="n">effort</span> <span class="o">==</span> <span class="s2">"none"</span><span class="p">:</span>                                       <span class="c1"># sampling settings are only allowed without reasoning</span>
+        <span class="k">if</span> <span class="n">temperature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="s2">"temperature"</span><span class="p">]</span> <span class="o">=</span> <span class="n">temperature</span>              <span class="c1"># how random the output is</span>
+        <span class="k">if</span> <span class="n">top_p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>       <span class="n">args</span><span class="p">[</span><span class="s2">"top_p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_p</span>                          <span class="c1"># keep only the most likely tokens</span>
+    <span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">1000</span> <span class="k">if</span> <span class="n">effort</span> <span class="o">==</span> <span class="s2">"none"</span> <span class="k">else</span> <span class="mi">4000</span>            <span class="c1"># reasoning tokens count too, so allow more</span>
+    <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">reasoning</span><span class="o">=</span><span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="n">effort</span><span class="p">},</span>      <span class="c1"># make the API call</span>
                                    <span class="n">max_output_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
-<span class="n">response</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"status:"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">SQL:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">])</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>   <span class="c1"># better prompt, gpt-5.4, temperature 0</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>                     <span class="c1"># the answer is JSON text -&gt; Python dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"status:"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>                             <span class="c1"># completed = the answer was not cut off</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>                           <span class="c1"># show the whole JSON answer</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">SQL:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">])</span>                             <span class="c1"># show the SQL on its own</span>
 </pre></div>
 </div>
 </div>
@@ -8241,7 +8254,7 @@ WHERE City = 'Boston'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This time the model listed the conditions first and worked out on its own that "qualify for Medicare" means age 65 or older. It computes the exact age: the difference in birth years, minus 1 if the birthday hasn't happened yet this year.</p>
+<p>This time the model listed the conditions first and worked out on its own that "qualify for Medicare" means age 65 or older. It computes the exact age: this year minus the birth year, minus 1 more if the birthday hasn't happened yet this year.</p>
 </div>
 </div>
 </div>
@@ -8264,16 +8277,17 @@ WHERE City = 'Boston'
 <div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">sqlite3</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">sqlite3</span>                                  <span class="c1"># regular expressions and the SQLite database</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>                                 <span class="c1"># tables for the results</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>       <span class="c1"># dates for the test data</span>
 
-<span class="n">TODAY</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>   <span class="c1"># SQLite's date('now') uses UTC</span>
+<span class="n">TODAY</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>   <span class="c1"># today's date in UTC, the same as SQLite's date('now')</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">born</span><span class="p">(</span><span class="n">years_ago</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+    <span class="c1"># birth date `years_ago` years before this year, e.g. born(72, 6, 15) = June 15, 72 years ago</span>
     <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="n">TODAY</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">years_ago</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
 
-<span class="c1"># (id, first, last, date of birth, city, state)   what the row tests</span>
+<span class="c1"># Test customers: (id, first, last, date of birth, city, state)   and what each row tests</span>
 <span class="n">CUSTOMERS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mi">1</span><span class="p">,</span>  <span class="s2">"Mary"</span><span class="p">,</span>  <span class="s2">"Smith"</span><span class="p">,</span>  <span class="n">born</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>  <span class="s2">"Boston"</span><span class="p">,</span>    <span class="s2">"MA"</span><span class="p">),</span>   <span class="c1"># match (June)</span>
     <span class="p">(</span><span class="mi">2</span><span class="p">,</span>  <span class="s2">"John"</span><span class="p">,</span>  <span class="s2">"Brown"</span><span class="p">,</span>  <span class="n">born</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>   <span class="s2">"Boston"</span><span class="p">,</span>    <span class="s2">"MA"</span><span class="p">),</span>   <span class="c1"># match (July)</span>
@@ -8289,24 +8303,26 @@ WHERE City = 'Boston'
 <span class="p">]</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">build_test_db</span><span class="p">():</span>
-    <span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">SCHEMA</span><span class="p">)</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s2">"INSERT INTO Customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)"</span><span class="p">,</span>
-                    <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">dob</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s2">"@example.com"</span><span class="p">,</span> <span class="s2">"617-555-01</span><span class="si">%02d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span>
+    <span class="c1"># Create a new in-memory SQLite database that holds the test customers</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>                                       <span class="c1"># database that only lives in memory</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">SCHEMA</span><span class="p">)</span>                                               <span class="c1"># same tables as in the prompt</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s2">"INSERT INTO Customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)"</span><span class="p">,</span>               <span class="c1"># add the customers</span>
+                    <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">dob</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s2">"@example.com"</span><span class="p">,</span> <span class="s2">"617-555-01</span><span class="si">%02d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span>   <span class="c1"># + email, phone</span>
                      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">dob</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">CUSTOMERS</span><span class="p">])</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO Orders VALUES (1, 1, '2026-01-05', 120.50)"</span><span class="p">)</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA query_only = ON"</span><span class="p">)</span>   <span class="c1"># the generated SQL can't change anything</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO Orders VALUES (1, 1, '2026-01-05', 120.50)"</span><span class="p">)</span>  <span class="c1"># one order (the query doesn't need it)</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA query_only = ON"</span><span class="p">)</span>                                   <span class="c1"># read-only: generated SQL can't change data</span>
     <span class="k">return</span> <span class="n">con</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">age</span><span class="p">(</span><span class="n">dob</span><span class="p">):</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">TODAY</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="p">((</span><span class="n">TODAY</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">TODAY</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
+    <span class="c1"># exact age today: difference in years, minus 1 if this year's birthday hasn't happened yet</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span>                                                  <span class="c1"># text date -&gt; date</span>
+    <span class="k">return</span> <span class="n">TODAY</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="p">((</span><span class="n">TODAY</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">TODAY</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>   <span class="c1"># True counts as 1</span>
 
-<span class="c1"># correct answer, computed in Python</span>
+<span class="c1"># Correct answer, worked out in Python (not with SQL)</span>
 <span class="n">EXPECTED</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">dob</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">CUSTOMERS</span>
-            <span class="k">if</span> <span class="n">dob</span> <span class="ow">and</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span><span class="o">.</span><span class="n">month</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">city</span> <span class="o">==</span> <span class="s2">"Boston"</span> <span class="ow">and</span> <span class="n">st</span> <span class="o">==</span> <span class="s2">"MA"</span> <span class="ow">and</span> <span class="n">age</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">65</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Today:"</span><span class="p">,</span> <span class="n">TODAY</span><span class="p">,</span> <span class="s2">"- expected CustomerIDs:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">EXPECTED</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">dob</span> <span class="ow">and</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span><span class="o">.</span><span class="n">month</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>    <span class="c1"># born in June, July or October</span>
+            <span class="ow">and</span> <span class="n">city</span> <span class="o">==</span> <span class="s2">"Boston"</span> <span class="ow">and</span> <span class="n">st</span> <span class="o">==</span> <span class="s2">"MA"</span> <span class="ow">and</span> <span class="n">age</span><span class="p">(</span><span class="n">dob</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">65</span><span class="p">}</span>   <span class="c1"># lives in Boston, MA and is 65 or older</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Today:"</span><span class="p">,</span> <span class="n">TODAY</span><span class="p">,</span> <span class="s2">"- expected CustomerIDs:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">EXPECTED</span><span class="p">))</span>   <span class="c1"># show the expected answer</span>
 </pre></div>
 </div>
 </div>
@@ -8345,26 +8361,28 @@ WHERE City = 'Boston'
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_sql</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"```(?:sql|sqlite)?\s*(.*?)```"</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">m</span> <span class="k">else</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># Get the SQL out of a plain-text answer: the part inside the ```sql code block, or the whole text</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"```(?:sql|sqlite)?\s*(.*?)```"</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>   <span class="c1"># look for a code block</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">m</span> <span class="k">else</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>                          <span class="c1"># its content without extra spaces</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">check_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"runs"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"correct"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"ids"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">sql</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^\s*(WITH|SELECT)\b"</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
+    <span class="c1"># Run a query on the test database and compare the customers it returns with EXPECTED</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"runs"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"correct"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"ids"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>   <span class="c1"># result if something goes wrong</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sql</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^\s*(WITH|SELECT)\b"</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>          <span class="c1"># only accept read-only queries</span>
         <span class="n">out</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"no SELECT statement"</span>
         <span class="k">return</span> <span class="n">out</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">cur</span> <span class="o">=</span> <span class="n">build_test_db</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
-        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="p">{</span><span class="n">row</span><span class="p">[</span><span class="n">cols</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">"customerid"</span><span class="p">)]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()}</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">runs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="n">correct</span><span class="o">=</span><span class="p">(</span><span class="n">ids</span> <span class="o">==</span> <span class="n">EXPECTED</span><span class="p">))</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">out</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">build_test_db</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>                                  <span class="c1"># run the query on a fresh test database</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>                      <span class="c1"># column names of the result</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">{</span><span class="n">row</span><span class="p">[</span><span class="n">cols</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">"customerid"</span><span class="p">)]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()}</span>     <span class="c1"># CustomerIDs that were returned</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">runs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="n">correct</span><span class="o">=</span><span class="p">(</span><span class="n">ids</span> <span class="o">==</span> <span class="n">EXPECTED</span><span class="p">))</span>   <span class="c1"># correct = exactly the expected customers</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>                                                  <span class="c1"># e.g. syntax from another SQL dialect</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>                           <span class="c1"># keep the error message</span>
     <span class="k">return</span> <span class="n">out</span>
 
-<span class="n">baseline_sql</span> <span class="o">=</span> <span class="n">extract_sql</span><span class="p">(</span><span class="n">baseline_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"First prompt :"</span><span class="p">,</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">baseline_sql</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Better prompt:"</span><span class="p">,</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">]))</span>
+<span class="n">baseline_sql</span> <span class="o">=</span> <span class="n">extract_sql</span><span class="p">(</span><span class="n">baseline_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>   <span class="c1"># SQL from the first prompt's text answer</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"First prompt :"</span><span class="p">,</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">baseline_sql</span><span class="p">))</span>           <span class="c1"># test the first prompt's query</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Better prompt:"</span><span class="p">,</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">]))</span>           <span class="c1"># test the better prompt's query</span>
 </pre></div>
 </div>
 </div>
@@ -8403,42 +8421,43 @@ Better prompt: {'runs': True, 'correct': True, 'ids': [1, 2, 3, 4, 5], 'error': 
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>   <span class="c1"># to measure how long each call takes</span>
 
+<span class="c1"># Settings to compare: (label, prompt, model, settings passed to generate_sql)</span>
 <span class="n">SETTINGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"first prompt, T=0"</span><span class="p">,</span>      <span class="s2">"baseline"</span><span class="p">,</span>   <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, T=0"</span><span class="p">,</span>     <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, T=0.7"</span><span class="p">,</span>   <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, T=1.5"</span><span class="p">,</span>   <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, top_p=0.1"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>     <span class="p">{</span><span class="s2">"top_p"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, mini, T=0"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">SMALL_MODEL</span><span class="p">,</span> <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
-    <span class="p">(</span><span class="s2">"better prompt, effort=low"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>    <span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="s2">"low"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"first prompt, T=0"</span><span class="p">,</span>      <span class="s2">"baseline"</span><span class="p">,</span>   <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>     <span class="c1"># lab-style prompt</span>
+    <span class="p">(</span><span class="s2">"better prompt, T=0"</span><span class="p">,</span>     <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>     <span class="c1"># no randomness</span>
+    <span class="p">(</span><span class="s2">"better prompt, T=0.7"</span><span class="p">,</span>   <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}),</span>   <span class="c1"># some randomness</span>
+    <span class="p">(</span><span class="s2">"better prompt, T=1.5"</span><span class="p">,</span>   <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>       <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">}),</span>   <span class="c1"># a lot of randomness</span>
+    <span class="p">(</span><span class="s2">"better prompt, top_p=0.1"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>     <span class="p">{</span><span class="s2">"top_p"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}),</span>         <span class="c1"># only the most likely tokens</span>
+    <span class="p">(</span><span class="s2">"better prompt, mini, T=0"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">SMALL_MODEL</span><span class="p">,</span> <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>   <span class="c1"># smaller model</span>
+    <span class="p">(</span><span class="s2">"better prompt, effort=low"</span><span class="p">,</span> <span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span>    <span class="p">{</span><span class="s2">"effort"</span><span class="p">:</span> <span class="s2">"low"</span><span class="p">}),</span>      <span class="c1"># reasoning instead of sampling</span>
 <span class="p">]</span>
-<span class="n">N_RUNS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">N_RUNS</span> <span class="o">=</span> <span class="mi">3</span>   <span class="c1"># repeat each setting 3 times to see how consistent it is</span>
 
-<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">settings</span> <span class="ow">in</span> <span class="n">SETTINGS</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_RUNS</span><span class="p">):</span>
-        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>                                                   <span class="c1"># one row per API call</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">settings</span> <span class="ow">in</span> <span class="n">SETTINGS</span><span class="p">:</span>             <span class="c1"># for each setting...</span>
+    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_RUNS</span><span class="p">):</span>                               <span class="c1"># ...run it 3 times</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>                                 <span class="c1"># start the timer</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
-            <span class="n">sql</span> <span class="o">=</span> <span class="n">extract_sql</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span> <span class="k">if</span> <span class="n">prompt</span> <span class="o">==</span> <span class="s2">"baseline"</span> <span class="k">else</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">output_text</span><span class="p">)[</span><span class="s2">"sql"</span><span class="p">]</span>
-            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"setting"</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">:</span> <span class="n">sql</span><span class="p">,</span> <span class="s2">"tokens"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">,</span>
-                         <span class="s2">"seconds"</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="o">**</span><span class="n">check_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">)})</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>     <span class="c1"># call the API</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="n">extract_sql</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span> <span class="k">if</span> <span class="n">prompt</span> <span class="o">==</span> <span class="s2">"baseline"</span> <span class="k">else</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">output_text</span><span class="p">)[</span><span class="s2">"sql"</span><span class="p">]</span>   <span class="c1"># get the SQL</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"setting"</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">:</span> <span class="n">sql</span><span class="p">,</span> <span class="s2">"tokens"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">,</span>     <span class="c1"># save the SQL, tokens,</span>
+                         <span class="s2">"seconds"</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="o">**</span><span class="n">check_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">)})</span>                <span class="c1"># time and accuracy check</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>   <span class="c1"># e.g. a setting the model doesn't support</span>
-            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"setting"</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"runs"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"correct"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                         <span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">[:</span><span class="mi">150</span><span class="p">]})</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"done:"</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"setting"</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"runs"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"correct"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>   <span class="c1"># record the error</span>
+                         <span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">[:</span><span class="mi">150</span><span class="p">]})</span>                      <span class="c1"># instead of stopping</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"done:"</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>                                   <span class="c1"># progress message</span>
 
-<span class="n">runs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-<span class="n">summary</span> <span class="o">=</span> <span class="n">runs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"setting"</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
-    <span class="n">accuracy</span><span class="o">=</span><span class="p">(</span><span class="s2">"correct"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
-    <span class="n">runs_on_sqlite</span><span class="o">=</span><span class="p">(</span><span class="s2">"runs"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
-    <span class="n">different_queries</span><span class="o">=</span><span class="p">(</span><span class="s2">"sql"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
-    <span class="n">avg_tokens</span><span class="o">=</span><span class="p">(</span><span class="s2">"tokens"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
-    <span class="n">avg_seconds</span><span class="o">=</span><span class="p">(</span><span class="s2">"seconds"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
-<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">summary</span>
+<span class="n">runs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>                                   <span class="c1"># all calls in one table</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">runs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"setting"</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>          <span class="c1"># one row per setting:</span>
+    <span class="n">accuracy</span><span class="o">=</span><span class="p">(</span><span class="s2">"correct"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>                           <span class="c1"># share of runs that returned exactly the right customers</span>
+    <span class="n">runs_on_sqlite</span><span class="o">=</span><span class="p">(</span><span class="s2">"runs"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>                        <span class="c1"># share of runs whose SQL ran without an error</span>
+    <span class="n">different_queries</span><span class="o">=</span><span class="p">(</span><span class="s2">"sql"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>   <span class="c1"># number of different SQL texts</span>
+    <span class="n">avg_tokens</span><span class="o">=</span><span class="p">(</span><span class="s2">"tokens"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>                          <span class="c1"># average tokens per call</span>
+    <span class="n">avg_seconds</span><span class="o">=</span><span class="p">(</span><span class="s2">"seconds"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>                        <span class="c1"># average time per call in seconds</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                                                  <span class="c1"># round to 2 decimals</span>
+<span class="n">summary</span>                                                     <span class="c1"># show the table</span>
 </pre></div>
 </div>
 </div>
@@ -8569,9 +8588,9 @@ done: better prompt, effort=low
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Observations">Observations<a class="anchor-link" href="#Observations">¶</a></h3><ul>
-<li><strong>The prompt mattered the most.</strong> The first prompt got 0 out of 3 right. Its logic was fine, but it was written for PostgreSQL (<code>EXTRACT(MONTH FROM DateOfBirth)</code>, <code>INTERVAL '65 years'</code>), so SQLite gave <code>near "FROM": syntax error</code> every time. The better prompt names the database and the date format, and it was correct in all 18 of its runs, at every setting.</li>
-<li><strong>JSON.</strong> With Structured Outputs, every run of the better prompt returned JSON that parsed, even at temperature 1.5.</li>
-<li><strong>Temperature.</strong> Higher temperature gave more variety: 1 different query in 3 runs at T=0, 2 at T=0.7 and 3 at T=1.5. All of them were still correct, so only the way the query was written changed, not the logic. Temperature 0 wasn't perfectly repeatable either: the first prompt and the mini model each gave 2 different queries at T=0.</li>
+<li><strong>The prompt mattered the most.</strong> The first prompt got 0 out of 3 right. Its logic was close (it only missed the state check), but it was written for PostgreSQL (<code>EXTRACT(MONTH FROM DateOfBirth)</code>, <code>INTERVAL '65 years'</code>), so SQLite gave <code>near "FROM": syntax error</code> every time. The better prompt names the database and the date format, and it was correct in all 18 of its runs, at every setting.</li>
+<li><strong>JSON.</strong> With Structured Outputs, every run of the better prompt returned valid JSON, even at temperature 1.5.</li>
+<li><strong>Temperature.</strong> Higher temperature gave more variety: the same query in all 3 runs at T=0, 2 different queries at T=0.7 and 3 different queries at T=1.5. All of them were still correct, so only the way the query was written changed, not the result. Temperature 0 wasn't perfectly repeatable either: the first prompt and the mini model each gave 2 different queries at T=0.</li>
 <li><strong>top_p = 0.1</strong> acted like temperature 0 and gave the same query in all 3 runs.</li>
 <li><strong>Reasoning effort "low"</strong> used more tokens (739 vs 660 on average) and took longer (6.1 s vs 5.3 s) with no gain in accuracy, because the task is simple once the prompt is clear.</li>
 <li><strong>The smaller model</strong> (gpt-5.4-mini) was also 100% correct and the fastest (3.1 s vs 5.3 s), but less consistent.</li>
@@ -8600,8 +8619,8 @@ done: better prompt, effort=low
 <div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="n">final_response</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">show_json</span><span class="p">(</span><span class="n">final_response</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">final_response</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>   <span class="c1"># final call with the settings chosen in part c</span>
+<span class="n">show_json</span><span class="p">(</span><span class="n">final_response</span><span class="p">)</span>                                           <span class="c1"># print the full API response as JSON</span>
 </pre></div>
 </div>
 </div>
@@ -8680,24 +8699,25 @@ done: better prompt, effort=low
 <div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="n">final_answer</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">final_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">final_answer</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">final_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>   <span class="c1"># the model's JSON answer -&gt; Python dictionary</span>
 
+<span class="c1"># Final JSON: the request, model and settings used, token usage, the model's answer and my accuracy check</span>
 <span class="n">final</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Hussein Jawad"</span><span class="p">,</span>
-    <span class="s2">"request"</span><span class="p">:</span> <span class="n">REQUEST</span><span class="p">,</span>
-    <span class="s2">"response_id"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-    <span class="s2">"model"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-    <span class="s2">"status"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
-    <span class="s2">"settings"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"reasoning_effort"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">,</span> <span class="s2">"max_output_tokens"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Hussein Jawad"</span><span class="p">,</span>                              <span class="c1"># my name</span>
+    <span class="s2">"request"</span><span class="p">:</span> <span class="n">REQUEST</span><span class="p">,</span>                                   <span class="c1"># the English request</span>
+    <span class="s2">"response_id"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>                     <span class="c1"># id of this API response</span>
+    <span class="s2">"model"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>                        <span class="c1"># exact model version that answered</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>                      <span class="c1"># completed = full answer</span>
+    <span class="s2">"settings"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"reasoning_effort"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">,</span> <span class="s2">"max_output_tokens"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>   <span class="c1"># settings used</span>
                  <span class="s2">"output_format"</span><span class="p">:</span> <span class="s2">"json_schema (strict)"</span><span class="p">},</span>
-    <span class="s2">"usage"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"input_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">input_tokens</span><span class="p">,</span>
-              <span class="s2">"output_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">output_tokens</span><span class="p">,</span>
-              <span class="s2">"total_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">},</span>
-    <span class="s2">"answer"</span><span class="p">:</span> <span class="n">final_answer</span><span class="p">,</span>
-    <span class="s2">"accuracy_check"</span><span class="p">:</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">final_answer</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">]),</span>
+    <span class="s2">"usage"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"input_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">input_tokens</span><span class="p">,</span>      <span class="c1"># tokens in my prompt</span>
+              <span class="s2">"output_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">output_tokens</span><span class="p">,</span>    <span class="c1"># tokens in the answer</span>
+              <span class="s2">"total_tokens"</span><span class="p">:</span> <span class="n">final_response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">},</span>     <span class="c1"># total for this call</span>
+    <span class="s2">"answer"</span><span class="p">:</span> <span class="n">final_answer</span><span class="p">,</span>                               <span class="c1"># conditions, assumptions, SQL and explanation</span>
+    <span class="s2">"accuracy_check"</span><span class="p">:</span> <span class="n">check_sql</span><span class="p">(</span><span class="n">final_answer</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">]),</span>     <span class="c1"># result of the query on the test database</span>
 <span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Final SQL:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">final_answer</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>                        <span class="c1"># print it as formatted JSON</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Final SQL:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">final_answer</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">])</span>             <span class="c1"># print the SQL on its own</span>
 </pre></div>
 </div>
 </div>
@@ -8778,25 +8798,95 @@ WHERE City = 'Boston'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><p><strong>Large language model (LLM).</strong> A neural network (a transformer) trained on a huge amount of text to predict the next token. It writes an answer one token at a time. GPT-5.4 is the LLM I used here.</p>
-<p><strong>Token.</strong> A piece of text, usually part of a word. Requests are measured and billed in tokens. The response's <code>usage</code> field shows <code>input_tokens</code> (my prompt), <code>output_tokens</code> (the answer, including any reasoning tokens) and <code>total_tokens</code>. <code>max_output_tokens</code> sets the most the model may write.</p>
-<p><strong>API key.</strong> A secret password that identifies my OpenAI account and is used for billing. It is kept in a <code>.env</code> file, loaded with <code>python-dotenv</code>, and never written in the notebook or uploaded to GitHub.</p>
-<p><strong>OpenAI Responses API.</strong> <code>client.responses.create(model=..., input=...)</code> sends a request and returns a response object. The useful parts are <code>output_text</code> (the answer), <code>status</code> (<code>completed</code> or <code>incomplete</code>) and <code>usage</code> (tokens).</p>
-<p><strong>Message roles.</strong> The input is a list of messages. The <strong>system</strong> message sets the rules and context (here: the table definitions and instructions), and the <strong>user</strong> message is the actual request.</p>
-<p><strong>Prompt engineering.</strong> Writing the prompt so the model does what you want. From Notebook 1:</p>
+<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><h3 id="1.-The-model-and-the-API">1. The model and the API<a class="anchor-link" href="#1.-The-model-and-the-API">¶</a></h3><p><strong>Large language model (LLM).</strong> A neural network (a transformer) trained on a very large amount of text. Given some text, it predicts the next token, adds it to the text and repeats until the answer is complete.</p>
+<p><em>Here:</em> <code>gpt-5.4</code> is the main model and <code>gpt-5.4-mini</code> a smaller, cheaper model.</p>
+<p><strong>Token.</strong> The unit an LLM reads and writes: a word or a piece of a word. Usage and cost are counted in tokens.</p>
+<p><em>Here:</em> the <code>usage</code> field of a response shows <code>input_tokens</code> (my prompt), <code>output_tokens</code> (the answer, including any reasoning tokens) and <code>total_tokens</code>. <code>max_output_tokens=1000</code> limits the length of the answer. The final call used 378 + 282 = 660 tokens.</p>
+<p><strong>API key.</strong> A secret string that identifies my OpenAI account. Every request is billed to it, so anyone who has it can spend my credits.</p>
+<p><em>Here:</em> it is stored in a <code>.env</code> file, loaded with <code>load_dotenv()</code>, and only printed masked (<code>sk-...iIoA</code>).</p>
+<p><strong>Responses API.</strong> OpenAI's endpoint for generating text. <code>client.responses.create(model=..., input=...)</code> sends a request and returns a response object.</p>
+<p><em>Here:</em> I use <code>output_text</code> (the answer), <code>status</code> (<code>completed</code> = finished, <code>incomplete</code> = cut off) and <code>usage</code> (tokens).</p>
+<p><strong>Message roles.</strong> The input is a list of messages, and each has a role:</p>
 <ul>
-<li><em>Clear and specific instructions</em>: use delimiters (tags) to separate the parts of the input, ask for a structured output, and say what to do when the task can't be done.</li>
-<li><em>Give the model time to think</em>: ask it to work out the steps (here: the list of conditions) before the final answer.</li>
+<li><code>system</code>: instructions and context that set the rules for the model</li>
+<li><code>user</code>: the actual request</li>
 </ul>
-<p><strong>Structured Outputs.</strong> With <code>text={"format": {"type": "json_schema", "strict": True, ...}}</code> the API forces the answer to be valid JSON that matches my schema (fields <code>conditions</code>, <code>assumptions</code>, <code>sql</code>, <code>explanation</code>). Only asking for JSON in the prompt usually works, but it isn't guaranteed.</p>
-<p><strong>Temperature.</strong> Controls how random the choice of the next token is. The model gives each possible token a score z, and the probability of token i is <code>p_i = exp(z_i / T) / sum_j exp(z_j / T)</code>. A low T almost always picks the most likely token (consistent output). A high T spreads the probability out (more variety, more risk). Consistent doesn't mean correct.</p>
-<p><strong>top_p (nucleus sampling).</strong> The model samples only from the smallest set of tokens whose probabilities add up to p. With <code>top_p=0.1</code> only the most likely tokens are left, so it behaves like a low temperature. OpenAI recommends changing temperature or top_p, not both.</p>
-<p><strong>Reasoning effort.</strong> Reasoning models can "think" (use hidden reasoning tokens) before answering. <code>effort</code> can be <code>none</code>, <code>low</code>, <code>medium</code> or <code>high</code>. More effort costs more tokens and time. Temperature and top_p can only be set when effort is <code>none</code>.</p>
-<p><strong>Text-to-SQL and SQL dialects.</strong> The model turns an English request into SQL, using the table definitions I gave it. Databases use different syntax for the same idea, so the prompt has to name the database:</p>
+<p><em>Here:</em> the table definitions and rules are in the system message, and the English request is in the user message.</p>
+<h3 id="2.-Prompting-and-the-output-format">2. Prompting and the output format<a class="anchor-link" href="#2.-Prompting-and-the-output-format">¶</a></h3><p><strong>Prompt engineering.</strong> Writing the input so that the model gives the answer you need. The tactics from Notebook 1 that I used:</p>
 <table>
 <thead>
 <tr>
-<th>Idea</th>
+<th>Tactic</th>
+<th>What I did</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use delimiters</td>
+<td>Request inside <code>&lt;request&gt;…&lt;/request&gt;</code>, tables inside <code>&lt;schema&gt;…&lt;/schema&gt;</code></td>
+</tr>
+<tr>
+<td>Ask for a structured output</td>
+<td>The answer must be JSON with fixed fields</td>
+</tr>
+<tr>
+<td>Check conditions</td>
+<td>If the tables can't answer the request, return <code>"sql": null</code></td>
+</tr>
+<tr>
+<td>Work it out first</td>
+<td>List the conditions before writing the SQL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Structured Outputs (JSON schema).</strong> Asking for JSON only in the prompt usually works but isn't guaranteed. Instead I pass a JSON schema in <code>text.format</code> with <code>strict: True</code>. The API then guarantees that the answer is valid JSON with exactly these fields: <code>conditions</code>, <code>assumptions</code>, <code>sql</code> and <code>explanation</code>. That is why <code>json.loads(response.output_text)</code> never failed.</p>
+<h3 id="3.-Settings-that-change-the-output">3. Settings that change the output<a class="anchor-link" href="#3.-Settings-that-change-the-output">¶</a></h3><p><strong>Temperature.</strong> For every possible next token the model computes a score z. Temperature T turns the scores into probabilities: <code>p_i = exp(z_i / T) / sum_j exp(z_j / T)</code>. Example with three tokens A, B, C whose scores are 2, 1 and 0:</p>
+<table>
+<thead>
+<tr>
+<th>T</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5</td>
+<td>0.87</td>
+<td>0.12</td>
+<td>0.02</td>
+<td>A is almost always picked: consistent</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>0.67</td>
+<td>0.24</td>
+<td>0.09</td>
+<td>the default</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>0.51</td>
+<td>0.31</td>
+<td>0.19</td>
+<td>flatter: more variety, more risk</td>
+</tr>
+</tbody>
+</table>
+<p>At T = 0 the model always picks the most likely token. Consistent doesn't mean correct: the model can repeat the same mistake every time.</p>
+<p><em>Here:</em> T = 0, 0.7 and 1.5 gave 1, 2 and 3 different queries in 3 runs.</p>
+<p><strong>top_p (nucleus sampling).</strong> Sort the tokens from most to least likely and keep only the top ones until their probabilities add up to p. The model then picks only from those. With the T = 1.0 numbers above, <code>top_p=0.9</code> keeps A and B (0.67 + 0.24 = 0.91) and <code>top_p=0.1</code> keeps only A. OpenAI recommends changing temperature or top_p, not both.</p>
+<p><em>Here:</em> <code>top_p=0.1</code> gave the same query in all 3 runs, just like T = 0.</p>
+<p><strong>Reasoning effort.</strong> Reasoning models can "think" with hidden reasoning tokens before they write the answer. <code>effort</code> is <code>none</code>, <code>low</code>, <code>medium</code> or <code>high</code>: more effort means more tokens and more time, and sometimes better answers on hard problems. With any effort other than <code>none</code>, temperature and top_p can't be set.</p>
+<p><em>Here:</em> <code>effort="low"</code> used more tokens (739 vs 660) and more time with no gain in accuracy, so the final call uses <code>none</code>.</p>
+<h3 id="4.-SQL">4. SQL<a class="anchor-link" href="#4.-SQL">¶</a></h3><p><strong>Text-to-SQL.</strong> The model translates an English request into SQL. It can only use the correct table and column names if they are in the prompt, which is why the <code>CREATE TABLE</code> statements are in the system message.</p>
+<p><strong>SQL dialects.</strong> Every database has its own syntax for some things, especially dates, so the same logic is written differently:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
 <th>SQLite</th>
 <th>PostgreSQL</th>
 <th>MySQL</th>
@@ -8817,8 +8907,11 @@ WHERE City = 'Boston'
 </tr>
 </tbody>
 </table>
-<p><strong>Medicare and exact age.</strong> Medicare starts at age 65, so "senior citizen who qualifies for Medicare" means age &gt;= 65. The exact age is (this year - birth year), minus 1 if the birthday hasn't happened yet this year. Using only the difference in years would count some 64-year-olds as 65.</p>
-<p><strong>Checking generated SQL.</strong> An LLM can write SQL that looks right but is wrong or doesn't run. I tested every query on a small database where I knew the correct answer, ran it read-only (<code>PRAGMA query_only = ON</code>), and only accepted it if it returned exactly the right customers.</p>
+<p><em>Here:</em> the first prompt didn't name a database, so the model wrote PostgreSQL, which fails on SQLite with <code>near "FROM": syntax error</code>.</p>
+<p><strong>Medicare and exact age.</strong> People qualify for Medicare at age 65, so the condition is age &gt;= 65. Exact age = (this year - birth year), minus 1 if this year's birthday hasn't happened yet. Example on 2026-11-17: someone born on 1961-12-20 gives 2026 - 1961 = 65, but their birthday is still to come, so they are 64 and don't qualify. Comparing only the years would get this wrong.</p>
+<p><em>Here:</em> the model's SQL subtracts <code>(strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))</code>, which is 1 when the birthday hasn't happened yet and 0 otherwise.</p>
+<p><strong>Testing generated SQL.</strong> An LLM can write SQL that looks right but returns the wrong rows or doesn't run at all.</p>
+<p><em>Here:</em> I ran every query on a small test database where I knew the correct answer (worked out in Python). The database was read-only (<code>PRAGMA query_only = ON</code>), and a query only counted as correct if it returned exactly customers 1 to 5.</p>
 </div>
 </div>
 </div>
