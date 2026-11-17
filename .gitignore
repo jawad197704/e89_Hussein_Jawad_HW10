@@ -1,0 +1,6 @@
+# secrets - never commit your OpenAI key
+.env
+# Jupyter / Python clutter
+.ipynb_checkpoints/
+__pycache__/
+.venv/

@@ -1,0 +1,5 @@
+openai>=2.0
+python-dotenv
+pandas
+jupyter
+nbconvert
