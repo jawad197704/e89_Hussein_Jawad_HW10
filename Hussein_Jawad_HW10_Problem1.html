@@ -8590,13 +8590,13 @@ done: better prompt, effort=low
 <h3 id="Observations">Observations<a class="anchor-link" href="#Observations">¶</a></h3><ul>
 <li><strong>The prompt mattered the most.</strong> The first prompt got 0 out of 3 right. Its logic was close (it only missed the state check), but it was written for PostgreSQL (<code>EXTRACT(MONTH FROM DateOfBirth)</code>, <code>INTERVAL '65 years'</code>), so SQLite gave <code>near "FROM": syntax error</code> every time. The better prompt names the database and the date format, and it was correct in all 18 of its runs, at every setting.</li>
 <li><strong>JSON.</strong> With Structured Outputs, every run of the better prompt returned valid JSON, even at temperature 1.5.</li>
-<li><strong>Temperature.</strong> Higher temperature gave more variety: the same query in all 3 runs at T=0, 2 different queries at T=0.7 and 3 different queries at T=1.5. All of them were still correct, so only the way the query was written changed, not the result. Temperature 0 wasn't perfectly repeatable either: the first prompt and the mini model each gave 2 different queries at T=0.</li>
+<li><strong>Temperature.</strong> Higher temperature gave more variety: the same query in all 3 runs at T=0, 2 different queries at T=0.7 and 3 different queries at T=1.5. All of them were still correct, so only the way the query was written changed, not the result. Temperature 0 wasn't perfectly repeatable either: the first prompt and the mini model each gave 2 different queries at T=0, and the better prompt wrote the month check two ways in c.1 and part d (<code>strftime('%m', DateOfBirth) IN ('06', '07', '10')</code> and <code>CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)</code>). Both are correct.</li>
 <li><strong>top_p = 0.1</strong> acted like temperature 0 and gave the same query in all 3 runs.</li>
 <li><strong>Reasoning effort "low"</strong> used more tokens (739 vs 660 on average) and took longer (6.1 s vs 5.3 s) with no gain in accuracy, because the task is simple once the prompt is clear.</li>
 <li><strong>The smaller model</strong> (gpt-5.4-mini) was also 100% correct and the fastest (3.1 s vs 5.3 s), but less consistent.</li>
 <li><strong>Cost.</strong> The better prompt uses more tokens than the first one (about 660 vs 240) because of the longer instructions and the JSON fields, but that is still a very small request.</li>
 </ul>
-<p>For part d I used the better prompt with <code>gpt-5.4</code>, temperature 0 and no reasoning: it was always correct, gave the same query every time and used no extra reasoning tokens.</p>
+<p>For part d I used the better prompt with <code>gpt-5.4</code>, temperature 0 and no reasoning: it was always correct, the most consistent setting, and used no extra reasoning tokens.</p>
 </div>
 </div>
 </div>
@@ -8633,7 +8633,7 @@ done: better prompt, effort=low
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The output of the cell above was very long, so I deleted it and copied the important fields here. The model's answer is the text in <code>output[0].content[0].text</code> and is shown in full in the next cell.</p>
+<p>The output of the cell above was very long, so I deleted it and copied the important fields here. The model's answer is the text in <code>output[0].content[0].text</code> and is shown in full in the next cell. I didn't set <code>top_p</code>; 0.98 is the value the API reports by default.</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"resp_03443d6f27e97f01006afbe6d8638487d2b2da65a2794a474c"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response"</span><span class="p">,</span>
@@ -8857,7 +8857,7 @@ WHERE City = 'Boston'
 <td>0.87</td>
 <td>0.12</td>
 <td>0.02</td>
-<td>A is almost always picked: consistent</td>
+<td>A is picked most of the time: more consistent</td>
 </tr>
 <tr>
 <td>1.0</td>
@@ -8875,7 +8875,7 @@ WHERE City = 'Boston'
 </tr>
 </tbody>
 </table>
-<p>At T = 0 the model always picks the most likely token. Consistent doesn't mean correct: the model can repeat the same mistake every time.</p>
+<p>At T = 0 the model picks the most likely token, so the output is nearly the same every run (small differences can still happen). Consistent doesn't mean correct: the model can repeat the same mistake every time.</p>
 <p><em>Here:</em> T = 0, 0.7 and 1.5 gave 1, 2 and 3 different queries in 3 runs.</p>
 <p><strong>top_p (nucleus sampling).</strong> Sort the tokens from most to least likely and keep only the top ones until their probabilities add up to p. The model then picks only from those. With the T = 1.0 numbers above, <code>top_p=0.9</code> keeps A and B (0.67 + 0.24 = 0.91) and <code>top_p=0.1</code> keeps only A. OpenAI recommends changing temperature or top_p, not both.</p>
 <p><em>Here:</em> <code>top_p=0.1</code> gave the same query in all 3 runs, just like T = 0.</p>

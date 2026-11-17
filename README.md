@@ -12,7 +12,6 @@ Turning an English request into SQL with the OpenAI API and returning the result
 - `Hussein_Jawad_HW10_Problem1.html` - HTML version of the notebook
 - `requirements.txt` - Python packages
 - `.env.example` - template for the `.env` file with the API key
-- `images/` - screenshots
 
 ## How to run it (Google Colab)
 
