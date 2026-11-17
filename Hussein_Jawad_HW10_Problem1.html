@@ -7875,7 +7875,7 @@ OPENAI_KEY_NAME=e89-hw10-key
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>   <span class="c1"># file and folder functions</span>
@@ -7903,7 +7903,7 @@ OPENAI_KEY_NAME=e89-hw10-key
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+<pre>Mounted at /content/drive
 Working folder: /content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10
 .env found    : True
 </pre>
@@ -7927,7 +7927,7 @@ Working folder: /content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>                                     <span class="c1"># convert between JSON text and Python dictionaries</span>
@@ -7986,7 +7986,7 @@ Key           : sk-...iIoA
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Table definitions given to the model. The assignment doesn't give a schema, so I made one:</span>
@@ -8035,7 +8035,7 @@ Key           : sk-...iIoA
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># First prompt, same pattern as the SQL example in the lab:</span>
@@ -8117,7 +8117,7 @@ WHERE City = 'Boston'
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># Better prompt (system message): the tables inside &lt;schema&gt; tags plus clear rules.</span>
@@ -8178,7 +8178,7 @@ WHERE City = 'Boston'
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_sql</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="s2">"none"</span><span class="p">):</span>
@@ -8217,18 +8217,17 @@ WHERE City = 'Boston'
 <pre>status: completed
 {
   "conditions": [
-    "Return all columns from Customers",
-    "Customer lives in Boston (City = 'Boston' and State = 'MA')",
-    "Customer was born in June, July, or October",
-    "Customer is a senior citizen and qualifies for Medicare benefit, interpreted as age 65 or older",
-    "Age must be computed exactly using today's date"
+    "Return all columns from Customers.",
+    "Customer lives in Boston (City = 'Boston' and State = 'MA').",
+    "Customer was born in June, July, or October.",
+    "Customer is a senior citizen, interpreted as age 65 or older as of today.",
+    "Use exact age calculation."
   ],
   "assumptions": [
-    "\"Senior citizens and hence qualify for Medicare benefit\" is interpreted as customers who are at least 65 years old",
-    "Month of birth is determined from DateOfBirth using SQLite strftime('%m', DateOfBirth)"
+    "\"Qualify for Medicare benefit\" is interpreted as being age 65 or older, since no Medicare eligibility field exists in the schema."
   ],
-  "sql": "SELECT *\nFROM Customers\nWHERE City = 'Boston'\n  AND State = 'MA'\n  AND strftime('%m', DateOfBirth) IN ('06', '07', '10')\n  AND (\n    CAST(strftime('%Y', date('now')) AS INTEGER)\n    - CAST(strftime('%Y', DateOfBirth) AS INTEGER)\n    - (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))\n  ) &gt;= 65;",
-  "explanation": "The query returns all customer columns for people who live in Boston, were born in June, July, or October, and are at least 65 years old as of today. Exact age is computed by subtracting birth year from the current year and adjusting if the birthday has not yet occurred this year."
+  "sql": "SELECT *\nFROM Customers\nWHERE City = 'Boston'\n  AND State = 'MA'\n  AND CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)\n  AND (\n    CAST(strftime('%Y', date('now')) AS INTEGER)\n    - CAST(strftime('%Y', DateOfBirth) AS INTEGER)\n    - (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))\n  ) &gt;= 65;",
+  "explanation": "The query returns all customer columns for customers who live in Boston, were born in June, July, or October, and are at least 65 years old today using an exact age calculation. Medicare qualification is inferred from age because the schema has no explicit Medicare-related field."
 }
 
 SQL:
@@ -8236,7 +8235,7 @@ SELECT *
 FROM Customers
 WHERE City = 'Boston'
   AND State = 'MA'
-  AND strftime('%m', DateOfBirth) IN ('06', '07', '10')
+  AND CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)
   AND (
     CAST(strftime('%Y', date('now')) AS INTEGER)
     - CAST(strftime('%Y', DateOfBirth) AS INTEGER)
@@ -8274,7 +8273,7 @@ WHERE City = 'Boston'
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">sqlite3</span>                                  <span class="c1"># regular expressions and the SQLite database</span>
@@ -8357,7 +8356,7 @@ WHERE City = 'Boston'
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_sql</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -8418,7 +8417,7 @@ Better prompt: {'runs': True, 'correct': True, 'ids': [1, 2, 3, 4, 5], 'error': 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>   <span class="c1"># to measure how long each call takes</span>
@@ -8481,8 +8480,9 @@ done: better prompt, effort=low
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-fb5d0d97-0b57-4adb-b9bf-dbe4fc06c284">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8523,58 +8523,182 @@ done: better prompt, effort=low
 <td>0.0</td>
 <td>2</td>
 <td>239.67</td>
-<td>2.69</td>
+<td>2.82</td>
 </tr>
 <tr>
 <th>better prompt, T=0</th>
 <td>1.0</td>
 <td>1.0</td>
-<td>1</td>
-<td>660.00</td>
-<td>5.26</td>
+<td>2</td>
+<td>664.33</td>
+<td>4.49</td>
 </tr>
 <tr>
 <th>better prompt, T=0.7</th>
 <td>1.0</td>
 <td>1.0</td>
 <td>2</td>
-<td>676.00</td>
-<td>6.41</td>
+<td>689.67</td>
+<td>4.82</td>
 </tr>
 <tr>
 <th>better prompt, T=1.5</th>
 <td>1.0</td>
 <td>1.0</td>
 <td>3</td>
-<td>668.33</td>
-<td>7.89</td>
+<td>678.33</td>
+<td>4.70</td>
 </tr>
 <tr>
 <th>better prompt, top_p=0.1</th>
 <td>1.0</td>
 <td>1.0</td>
-<td>1</td>
-<td>660.00</td>
-<td>5.24</td>
+<td>2</td>
+<td>679.00</td>
+<td>4.57</td>
 </tr>
 <tr>
 <th>better prompt, mini, T=0</th>
 <td>1.0</td>
 <td>1.0</td>
-<td>2</td>
-<td>643.67</td>
-<td>3.13</td>
+<td>1</td>
+<td>650.33</td>
+<td>3.22</td>
 </tr>
 <tr>
 <th>better prompt, effort=low</th>
 <td>1.0</td>
 <td>1.0</td>
 <td>2</td>
-<td>738.67</td>
-<td>6.13</td>
+<td>717.67</td>
+<td>4.89</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-fb5d0d97-0b57-4adb-b9bf-dbe4fc06c284')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-fb5d0d97-0b57-4adb-b9bf-dbe4fc06c284 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-fb5d0d97-0b57-4adb-b9bf-dbe4fc06c284');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="id_ac75e00b-5764-4bce-a157-228629df6bdd">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('summary')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_ac75e00b-5764-4bce-a157-228629df6bdd button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('summary');
+      }
+      })();
+    </script>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -8590,13 +8714,14 @@ done: better prompt, effort=low
 <h3 id="Observations">Observations<a class="anchor-link" href="#Observations">¶</a></h3><ul>
 <li><strong>The prompt mattered the most.</strong> The first prompt got 0 out of 3 right. Its logic was close (it only missed the state check), but it was written for PostgreSQL (<code>EXTRACT(MONTH FROM DateOfBirth)</code>, <code>INTERVAL '65 years'</code>), so SQLite gave <code>near "FROM": syntax error</code> every time. The better prompt names the database and the date format, and it was correct in all 18 of its runs, at every setting.</li>
 <li><strong>JSON.</strong> With Structured Outputs, every run of the better prompt returned valid JSON, even at temperature 1.5.</li>
-<li><strong>Temperature.</strong> Higher temperature gave more variety: the same query in all 3 runs at T=0, 2 different queries at T=0.7 and 3 different queries at T=1.5. All of them were still correct, so only the way the query was written changed, not the result. Temperature 0 wasn't perfectly repeatable either: the first prompt and the mini model each gave 2 different queries at T=0, and the better prompt wrote the month check two ways in c.1 and part d (<code>strftime('%m', DateOfBirth) IN ('06', '07', '10')</code> and <code>CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)</code>). Both are correct.</li>
-<li><strong>top_p = 0.1</strong> acted like temperature 0 and gave the same query in all 3 runs.</li>
-<li><strong>Reasoning effort "low"</strong> used more tokens (739 vs 660 on average) and took longer (6.1 s vs 5.3 s) with no gain in accuracy, because the task is simple once the prompt is clear.</li>
-<li><strong>The smaller model</strong> (gpt-5.4-mini) was also 100% correct and the fastest (3.1 s vs 5.3 s), but less consistent.</li>
-<li><strong>Cost.</strong> The better prompt uses more tokens than the first one (about 660 vs 240) because of the longer instructions and the JSON fields, but that is still a very small request.</li>
+<li><strong>Temperature.</strong> The highest temperature gave the most variety: 3 different queries in 3 runs at T=1.5, compared with 2 at T=0.7 and 2 at T=0. All of them were still correct, so only the way the query was written changed, not the result. Temperature 0 wasn't perfectly repeatable: the first prompt and the better prompt each gave 2 different queries at T=0. Even the c.1 and part d calls (both T=0) wrote the birthday adjustment two ways: <code>- (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))</code> and <code>- CASE WHEN ... THEN 1 ELSE 0 END</code>. Both are correct.</li>
+<li><strong>top_p = 0.1</strong> behaved like temperature 0: 2 different queries in 3 runs, all correct.</li>
+<li><strong>Reasoning effort "low"</strong> used more tokens (718 vs 664 on average) and took longer (4.9 s vs 4.5 s) with no gain in accuracy, because the task is simple once the prompt is clear.</li>
+<li><strong>The smaller model</strong> (gpt-5.4-mini) was also 100% correct, the fastest (3.2 s vs 4.5 s), and in this run the only setting that gave the same query all 3 times.</li>
+<li><strong>Cost.</strong> The better prompt uses more tokens than the first one (about 664 vs 240) because of the longer instructions and the JSON fields, but that is still a very small request.</li>
 </ul>
-<p>For part d I used the better prompt with <code>gpt-5.4</code>, temperature 0 and no reasoning: it was always correct, the most consistent setting, and used no extra reasoning tokens.</p>
+<p>With only 3 runs per setting, the counts of different queries are small, so I read them as a rough trend, not exact numbers.</p>
+<p>For part d I used the better prompt with <code>gpt-5.4</code>, temperature 0 and no reasoning: it was always correct, temperature 0 keeps the randomness as low as possible, and it used no extra reasoning tokens. <code>gpt-5.4-mini</code> would also have worked (correct, faster and cheaper), but I kept <code>gpt-5.4</code> as the main model, as in the lab.</p>
 </div>
 </div>
 </div>
@@ -8616,7 +8741,7 @@ done: better prompt, effort=low
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">final_response</span> <span class="o">=</span> <span class="n">generate_sql</span><span class="p">(</span><span class="s2">"engineered"</span><span class="p">,</span> <span class="n">MODEL</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>   <span class="c1"># final call with the settings chosen in part c</span>
@@ -8635,7 +8760,7 @@ done: better prompt, effort=low
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The output of the cell above was very long, so I deleted it and copied the important fields here. The model's answer is the text in <code>output[0].content[0].text</code> and is shown in full in the next cell. I didn't set <code>top_p</code>; 0.98 is the value the API reports by default.</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"resp_03443d6f27e97f01006afbe6d8638487d2b2da65a2794a474c"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"resp_00cdcd21f07a4396006afbef2ccf8c87d2b9249a3e30bb32c7"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gpt-5.4-2026-03-05"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span>
@@ -8669,11 +8794,11 @@ done: better prompt, effort=low
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"usage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"input_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">378</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"output_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"output_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">296</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"output_tokens_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"reasoning_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">"total_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">660</span>
+<span class="w">    </span><span class="nt">"total_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">674</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -8696,7 +8821,7 @@ done: better prompt, effort=low
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">final_answer</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">final_response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>   <span class="c1"># the model's JSON answer -&gt; Python dictionary</span>
@@ -8733,7 +8858,7 @@ done: better prompt, effort=low
 <pre>{
   "name": "Hussein Jawad",
   "request": "Select all customers who are born in either June, July, October, live in Boston, are senior citizens and hence qualify for Medicare benefit",
-  "response_id": "resp_03443d6f27e97f01006afbe6d8638487d2b2da65a2794a474c",
+  "response_id": "resp_00cdcd21f07a4396006afbef2ccf8c87d2b9249a3e30bb32c7",
   "model": "gpt-5.4-2026-03-05",
   "status": "completed",
   "settings": {
@@ -8744,22 +8869,22 @@ done: better prompt, effort=low
   },
   "usage": {
     "input_tokens": 378,
-    "output_tokens": 282,
-    "total_tokens": 660
+    "output_tokens": 296,
+    "total_tokens": 674
   },
   "answer": {
     "conditions": [
-      "Return all columns from Customers.",
-      "Customer lives in Boston (City = 'Boston' and State = 'MA').",
-      "Customer was born in June, July, or October.",
-      "Customer is a senior citizen, interpreted as age 65 or older as of today.",
-      "Use exact age calculation."
+      "Return all columns from Customers",
+      "Customer lives in Boston (City = 'Boston' and State = 'MA')",
+      "Customer was born in June, July, or October",
+      "Customer is a senior citizen, interpreted as age 65 or older as of today",
+      "Age must be computed exactly"
     ],
     "assumptions": [
-      "\"Qualify for Medicare benefit\" is interpreted as being age 65 or older, since no Medicare eligibility field exists in the schema."
+      "\"Qualify for Medicare benefit\" is interpreted as being age 65 or older, since no Medicare eligibility field exists in the schema"
     ],
-    "sql": "SELECT *\nFROM Customers\nWHERE City = 'Boston'\n  AND State = 'MA'\n  AND CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)\n  AND (\n    CAST(strftime('%Y', date('now')) AS INTEGER)\n    - CAST(strftime('%Y', DateOfBirth) AS INTEGER)\n    - (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))\n  ) &gt;= 65;",
-    "explanation": "The query returns all customer columns for people who live in Boston, were born in June, July, or October, and are at least 65 years old today. Exact age is computed by subtracting birth year from the current year and adjusting if the birthday has not yet occurred this year."
+    "sql": "SELECT *\nFROM Customers\nWHERE City = 'Boston'\n  AND State = 'MA'\n  AND CAST(strftime('%m', DateOfBirth) AS INTEGER) IN (6, 7, 10)\n  AND (\n    CAST(strftime('%Y', date('now')) AS INTEGER)\n    - CAST(strftime('%Y', DateOfBirth) AS INTEGER)\n    - CASE\n        WHEN strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth) THEN 1\n        ELSE 0\n      END\n  ) &gt;= 65;",
+    "explanation": "The query returns all customer columns for customers who live in Boston, were born in June, July, or October, and are exactly 65 or older today. Exact age is calculated by subtracting birth year from the current year and adjusting if the birthday has not yet occurred this year."
   },
   "accuracy_check": {
     "runs": true,
@@ -8784,7 +8909,10 @@ WHERE City = 'Boston'
   AND (
     CAST(strftime('%Y', date('now')) AS INTEGER)
     - CAST(strftime('%Y', DateOfBirth) AS INTEGER)
-    - (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))
+    - CASE
+        WHEN strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth) THEN 1
+        ELSE 0
+      END
   ) &gt;= 65;
 </pre>
 </div>
@@ -8801,7 +8929,7 @@ WHERE City = 'Boston'
 <h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><h3 id="1.-The-model-and-the-API">1. The model and the API<a class="anchor-link" href="#1.-The-model-and-the-API">¶</a></h3><p><strong>Large language model (LLM).</strong> A neural network (a transformer) trained on a very large amount of text. Given some text, it predicts the next token, adds it to the text and repeats until the answer is complete.</p>
 <p><em>Here:</em> <code>gpt-5.4</code> is the main model and <code>gpt-5.4-mini</code> a smaller, cheaper model.</p>
 <p><strong>Token.</strong> The unit an LLM reads and writes: a word or a piece of a word. Usage and cost are counted in tokens.</p>
-<p><em>Here:</em> the <code>usage</code> field of a response shows <code>input_tokens</code> (my prompt), <code>output_tokens</code> (the answer, including any reasoning tokens) and <code>total_tokens</code>. <code>max_output_tokens=1000</code> limits the length of the answer. The final call used 378 + 282 = 660 tokens.</p>
+<p><em>Here:</em> the <code>usage</code> field of a response shows <code>input_tokens</code> (my prompt), <code>output_tokens</code> (the answer, including any reasoning tokens) and <code>total_tokens</code>. <code>max_output_tokens=1000</code> limits the length of the answer. The final call used 378 + 296 = 674 tokens.</p>
 <p><strong>API key.</strong> A secret string that identifies my OpenAI account. Every request is billed to it, so anyone who has it can spend my credits.</p>
 <p><em>Here:</em> it is stored in a <code>.env</code> file, loaded with <code>load_dotenv()</code>, and only printed masked (<code>sk-...iIoA</code>).</p>
 <p><strong>Responses API.</strong> OpenAI's endpoint for generating text. <code>client.responses.create(model=..., input=...)</code> sends a request and returns a response object.</p>
@@ -8876,11 +9004,11 @@ WHERE City = 'Boston'
 </tbody>
 </table>
 <p>At T = 0 the model picks the most likely token, so the output is nearly the same every run (small differences can still happen). Consistent doesn't mean correct: the model can repeat the same mistake every time.</p>
-<p><em>Here:</em> T = 0, 0.7 and 1.5 gave 1, 2 and 3 different queries in 3 runs.</p>
+<p><em>Here:</em> T = 0, 0.7 and 1.5 gave 2, 2 and 3 different queries in 3 runs, all of them correct.</p>
 <p><strong>top_p (nucleus sampling).</strong> Sort the tokens from most to least likely and keep only the top ones until their probabilities add up to p. The model then picks only from those. With the T = 1.0 numbers above, <code>top_p=0.9</code> keeps A and B (0.67 + 0.24 = 0.91) and <code>top_p=0.1</code> keeps only A. OpenAI recommends changing temperature or top_p, not both.</p>
-<p><em>Here:</em> <code>top_p=0.1</code> gave the same query in all 3 runs, just like T = 0.</p>
+<p><em>Here:</em> <code>top_p=0.1</code> gave 2 different queries in 3 runs, the same as T = 0.</p>
 <p><strong>Reasoning effort.</strong> Reasoning models can "think" with hidden reasoning tokens before they write the answer. <code>effort</code> is <code>none</code>, <code>low</code>, <code>medium</code> or <code>high</code>: more effort means more tokens and more time, and sometimes better answers on hard problems. With any effort other than <code>none</code>, temperature and top_p can't be set.</p>
-<p><em>Here:</em> <code>effort="low"</code> used more tokens (739 vs 660) and more time with no gain in accuracy, so the final call uses <code>none</code>.</p>
+<p><em>Here:</em> <code>effort="low"</code> used more tokens (718 vs 664) and more time with no gain in accuracy, so the final call uses <code>none</code>.</p>
 <h3 id="4.-SQL">4. SQL<a class="anchor-link" href="#4.-SQL">¶</a></h3><p><strong>Text-to-SQL.</strong> The model translates an English request into SQL. It can only use the correct table and column names if they are in the prompt, which is why the <code>CREATE TABLE</code> statements are in the system message.</p>
 <p><strong>SQL dialects.</strong> Every database has its own syntax for some things, especially dates, so the same logic is written differently:</p>
 <table>
@@ -8909,7 +9037,7 @@ WHERE City = 'Boston'
 </table>
 <p><em>Here:</em> the first prompt didn't name a database, so the model wrote PostgreSQL, which fails on SQLite with <code>near "FROM": syntax error</code>.</p>
 <p><strong>Medicare and exact age.</strong> People qualify for Medicare at age 65, so the condition is age &gt;= 65. Exact age = (this year - birth year), minus 1 if this year's birthday hasn't happened yet. Example on 2026-11-17: someone born on 1961-12-20 gives 2026 - 1961 = 65, but their birthday is still to come, so they are 64 and don't qualify. Comparing only the years would get this wrong.</p>
-<p><em>Here:</em> the model's SQL subtracts <code>(strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))</code>, which is 1 when the birthday hasn't happened yet and 0 otherwise.</p>
+<p><em>Here:</em> the model's SQL subtracts 1 when the birthday hasn't happened yet. In c.1 it wrote <code>- (strftime('%m-%d', date('now')) &lt; strftime('%m-%d', DateOfBirth))</code> (in SQLite a comparison gives 1 or 0), and in part d <code>- CASE WHEN ... THEN 1 ELSE 0 END</code>.</p>
 <p><strong>Testing generated SQL.</strong> An LLM can write SQL that looks right but returns the wrong rows or doesn't run at all.</p>
 <p><em>Here:</em> I ran every query on a small test database where I knew the correct answer (worked out in Python). The database was read-only (<code>PRAGMA query_only = ON</code>), and a query only counted as correct if it returned exactly customers 1 to 5.</p>
 </div>
