@@ -8,10 +8,10 @@ Turning an English request into SQL with the OpenAI API and returning the result
 
 ## Files
 
-- `Hussein_Jawad_HW10_Problem1.ipynb` - the notebook
+- `Hussein_Jawad_HW10_Problem1.ipynb` - the notebook with all outputs (run in Google Colab)
+- `Hussein_Jawad_HW10_Problem1.html` - HTML version of the notebook
 - `requirements.txt` - Python packages
 - `.env.example` - template for the `.env` file with the API key
-- `results/` - JSON response and experiment results (written by the notebook)
 - `images/` - screenshots
 
 ## How to run it (Google Colab)
