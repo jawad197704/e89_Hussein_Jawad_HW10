@@ -7860,11 +7860,11 @@ a.anchor-link {
 
 <span class="n">PROJECT_DIR</span> <span class="o">=</span> <span class="s2">"/content/drive/MyDrive/CSCI-E-89-1-Deep-Learning/HW10"</span>   <span class="c1"># Drive folder with this notebook and .env</span>
 
-<span class="k">try</span><span class="p">:</span>
+<span class="k">try</span><span class="p">:</span>                                 <span class="c1"># works only in Colab</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>   <span class="c1"># this import only works inside Colab</span>
     <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">"/content/drive"</span><span class="p">)</span>    <span class="c1"># connect my Google Drive to the Colab machine</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">PROJECT_DIR</span><span class="p">)</span>            <span class="c1"># work inside the project folder so .env is found</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>                  <span class="c1"># not in Colab</span>
     <span class="k">pass</span>                             <span class="c1"># not in Colab: stay in the current folder</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Working folder:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>               <span class="c1"># show the folder we are working in</span>
@@ -8189,7 +8189,7 @@ This makes a chat application feel faster because the user gets immediate feedba
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Same text as function 1     :"</span><span class="p">,</span> <span class="n">text</span> <span class="o">==</span> <span class="n">complete</span><span class="p">[</span><span class="s2">"text"</span><span class="p">])</span>                   <span class="c1"># same prompt and settings</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First 10 deltas:"</span><span class="p">,</span> <span class="n">streamed</span><span class="p">[</span><span class="s2">"pieces"</span><span class="p">][:</span><span class="mi">10</span><span class="p">])</span>                               <span class="c1"># what the pieces look like</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Event types received:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Event types received:"</span><span class="p">)</span>                                                  <span class="c1"># heading for the list</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">streamed</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>                                     <span class="c1"># every event type, in order of first arrival</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">38s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>                                                 <span class="c1"># name and count</span>
 </pre></div>
@@ -8249,12 +8249,12 @@ Event types received:
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">short_settings</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SETTINGS</span><span class="p">,</span> <span class="s2">"max_output_tokens"</span><span class="p">:</span> <span class="mi">16</span><span class="p">}</span>     <span class="c1"># same settings, but the answer is cut off after 16 tokens</span>
 
-<span class="k">try</span><span class="p">:</span>
+<span class="k">try</span><span class="p">:</span>                                                         <span class="c1"># this should fail</span>
     <span class="n">get_complete_response</span><span class="p">(</span><span class="n">PROMPT</span><span class="p">,</span> <span class="o">**</span><span class="n">short_settings</span><span class="p">)</span>          <span class="c1"># function 1 with the short limit</span>
 <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>                                    <span class="c1"># the function noticed it didn't complete</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"Function 1:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>                                  <span class="c1"># show the reason</span>
 
-<span class="k">try</span><span class="p">:</span>
+<span class="k">try</span><span class="p">:</span>                                                         <span class="c1"># this should fail too</span>
     <span class="n">get_streamed_response</span><span class="p">(</span><span class="n">PROMPT</span><span class="p">,</span> <span class="o">**</span><span class="n">short_settings</span><span class="p">)</span>          <span class="c1"># function 2: starts printing, then stops</span>
 <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>                                    <span class="c1"># the function noticed it didn't complete</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Function 2:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>                                <span class="c1"># show the reason</span>
@@ -8290,7 +8290,7 @@ Function 2: Stream ended with response.incomplete: IncompleteDetails(reason='max
 </li>
 <li><p>The streaming was real. The first piece of text arrived after 1.26 seconds and the last one after 4.60 seconds, and the 173 delta events came in spread out over that time. With the complete response I saw nothing for 5.8 seconds and then the whole answer at once. So with streaming I could start reading about 4.5 seconds earlier. The total time was about the same (4.9 s vs 5.8 s). The difference is just normal variation between two calls; streaming doesn't make the model write faster, it only shows the text earlier.</p>
 </li>
-<li><p>The text was rebuilt without duplication. Joining the 173 deltas gave 967 characters, exactly the same text as <code>output_text</code> in the final response object (the check printed <code>True</code>). Most deltas are one word with its space in front (<code>' a'</code>, <code>' response'</code>), so I join them with <code>""</code> and not with <code>" "</code>, otherwise the spaces would be doubled.</p>
+<li><p>The text was rebuilt without duplication. Joining the 173 deltas gave 967 characters, exactly the same text as <code>output_text</code> in the final response object (the check printed <code>True</code>). The deltas are single words with the space in front (see the first 10 in Step 6: <code>' a'</code>, <code>' response'</code>, ...), so I join them with <code>""</code> and not with <code>" "</code>, otherwise the spaces would be doubled.</p>
 </li>
 <li><p>The event counts show the order of a streamed response: one <code>response.created</code>, <code>response.in_progress</code>, <code>output_item.added</code> and <code>content_part.added</code> at the start, 173 <code>response.output_text.delta</code> events, then one <code>output_text.done</code>, <code>content_part.done</code>, <code>output_item.done</code> and finally <code>response.completed</code>. The <code>output_text.done</code> event contains the whole text again. If I had added it to my text as well, the answer would have been doubled (1,934 characters instead of 967).</p>
 </li>
