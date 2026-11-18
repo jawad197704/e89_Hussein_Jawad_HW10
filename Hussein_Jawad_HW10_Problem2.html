@@ -7924,10 +7924,10 @@ a.anchor-link {
 <span class="nb">print</span><span class="p">(</span><span class="s2">"RAM available   :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">available</span> <span class="o">/</span> <span class="mf">1e9</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"GB"</span><span class="p">)</span>  <span class="c1"># memory free right now</span>
 
 <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">"nvidia-smi"</span><span class="p">):</span>                                                       <span class="c1"># an NVIDIA GPU driver is installed</span>
-    <span class="n">gpu</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"nvidia-smi"</span><span class="p">,</span> <span class="s2">"--query-gpu=name,memory.total"</span><span class="p">,</span> <span class="s2">"--format=csv,noheader"</span><span class="p">],</span>
+    <span class="n">gpu</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"nvidia-smi"</span><span class="p">,</span> <span class="s2">"--query-gpu=name,memory.total"</span><span class="p">,</span> <span class="s2">"--format=csv,noheader"</span><span class="p">],</span>   <span class="c1"># run nvidia-smi</span>
                          <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>             <span class="c1"># ask the driver for name and memory</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"GPU             :"</span><span class="p">,</span> <span class="n">gpu</span><span class="p">)</span>                                                 <span class="c1"># e.g. NVIDIA L4, 23034 MiB</span>
-<span class="k">else</span><span class="p">:</span>
+<span class="k">else</span><span class="p">:</span>   <span class="c1"># no NVIDIA driver on this PC</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"GPU             : no NVIDIA GPU found (the model will run on the CPU, which is slower)"</span><span class="p">)</span>   <span class="c1"># no GPU driver found</span>
 </pre></div>
 </div>
@@ -8193,7 +8193,7 @@ Thinking kept apart : True
     <span class="nb">print</span><span class="p">(</span><span class="n">thinking</span><span class="p">[:</span><span class="mi">1800</span><span class="p">])</span>                                    <span class="c1"># first 1,800 characters</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[... </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">thinking</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2500</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> characters skipped ...]</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>   <span class="c1"># how much is not shown</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">thinking</span><span class="p">[</span><span class="o">-</span><span class="mi">700</span><span class="p">:])</span>                                    <span class="c1"># last 700 characters</span>
-<span class="k">else</span><span class="p">:</span>
+<span class="k">else</span><span class="p">:</span>   <span class="c1"># short enough</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">thinking</span><span class="p">)</span>                                           <span class="c1"># short enough to show in full</span>
 </pre></div>
 </div>
@@ -8347,7 +8347,7 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </li>
 <li><p>I compared the answer with the summary in the appendix, and it is mostly right. For special relativity it covers the two postulates, time dilation, length contraction, E = mc² and flat spacetime. For general relativity it covers the equivalence principle, curved spacetime, light bending (the 1919 eclipse), gravitational time dilation (GPS), Mercury's orbit and gravitational waves. It doesn't mention black holes. A few things are a bit simplified:</p>
 <ul>
-<li>It says special relativity can't handle acceleration. Special relativity can actually describe accelerating objects; what it can't describe is gravity. The real difference is flat vs curved spacetime.</li>
+<li>It says special relativity can't handle acceleration. Special relativity can actually describe accelerating objects. What it can't describe is gravity. The real difference is flat vs curved spacetime.</li>
 <li>It writes Einstein's field equations as Gᵘᵛ = 8πTᵘᵛ, which leaves out the constants G and c.</li>
 <li>The airplane clock example only looks at speed. Higher up, gravity is weaker, which makes clocks run a little faster, so in real experiments the result depended on which direction the plane flew.</li>
 </ul>

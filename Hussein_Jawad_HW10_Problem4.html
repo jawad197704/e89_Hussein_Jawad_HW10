@@ -7803,7 +7803,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Assignment-10---Problem-4">Assignment 10 - Problem 4<a class="anchor-link" href="#Assignment-10---Problem-4">¶</a></h1><h2 id="Routing-support-messages-with-the-OpenAI-Decisions-API">Routing support messages with the OpenAI Decisions API<a class="anchor-link" href="#Routing-support-messages-with-the-OpenAI-Decisions-API">¶</a></h2><p><strong>Name:</strong> Hussein Jawad</p>
-<p>In this problem I write a function <code>classify_support_message(message)</code> that uses <code>client.decisions.create()</code> to decide which department should handle a customer-support message. It asks one <strong>choice</strong> question with four options (Billing, Technical support, Account access, Other) and returns a Python dictionary with the chosen department and the probability of each option.</p>
+<p>In this problem I write a function <code>classify_support_message(message)</code> that uses <code>client.decisions.create()</code> to decide which department should handle a customer-support message. It asks one choice question with four options (Billing, Technical support, Account access, Other) and returns a Python dictionary with the chosen department and the probability of each option.</p>
 <p>Steps:</p>
 <ol>
 <li>Setup</li>
@@ -7984,7 +7984,7 @@ Key           : sk-...iIoA
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_support_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_support_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>   <span class="c1"># the function the assignment asks for</span>
     <span class="c1"># Ask the Decisions API which department should handle the message</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">decisions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>               <span class="c1"># call the Decisions API</span>
         <span class="n">model</span><span class="o">=</span><span class="n">DECISION_MODEL</span><span class="p">,</span>                       <span class="c1"># gpt-6-luna</span>
@@ -8018,7 +8018,7 @@ Key           : sk-...iIoA
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-4---My-expected-labels-(before-running-the-function)">Step 4 - My expected labels (before running the function)<a class="anchor-link" href="#Step-4---My-expected-labels-(before-running-the-function)">¶</a></h2><p>I wrote down which department I expect for each message <strong>before</strong> calling the API, so the API's answers can't influence my labels:</p>
+<h2 id="Step-4---My-expected-labels-(before-running-the-function)">Step 4 - My expected labels (before running the function)<a class="anchor-link" href="#Step-4---My-expected-labels-(before-running-the-function)">¶</a></h2><p>I wrote down which department I expect for each message before calling the API, so the API's answers can't influence my labels:</p>
 <table>
 <thead>
 <tr>
@@ -8326,9 +8326,9 @@ Message 5:
 </li>
 <li><p>The three clear messages (the double charge, the app crash and the lost phone with the login code) got 100% for one department and a confidence of 1.0. Each of them matches one department's description directly.</p>
 </li>
-<li><p>Message 4 (student discounts) went to <strong>Other</strong> with 93% (Billing 4%, Account access 3%) and a confidence of 0.91. I expected this, but it could easily have gone to Billing because it is about money. The Billing description only covers payments, invoices, refunds and unexpected charges, and a question about discounts is none of those. So the descriptions from the assignment really matter here.</p>
+<li><p>Message 4 (student discounts) went to Other with 93% (Billing 4%, Account access 3%) and a confidence of 0.91. I expected this, but it could easily have gone to Billing because it is about money. The Billing description only covers payments, invoices, refunds and unexpected charges, and a question about discounts is none of those. So the descriptions from the assignment really matter here.</p>
 </li>
-<li><p>Message 5 (can't log in to cancel, and keeps getting charged) was the hardest one. It went to <strong>Account access</strong> with 87%, but Billing still got 13%, and the confidence was 0.83, the lowest of the five. The model clearly sees both problems. My instruction to pick the department that fixes the blocking problem probably helped push it toward Account access. In the lab example, answers with a confidence below 0.8 are sent to a person for review. 0.83 is just above that, so this message would still be routed automatically, but it is the one closest to needing a person. In a real support system both teams would probably be needed: Account access to get the customer logged in again, and Billing to refund the extra charges.</p>
+<li><p>Message 5 (can't log in to cancel, and keeps getting charged) was the hardest one. It went to Account access with 87%, but Billing still got 13%, and the confidence was 0.83, the lowest of the five. The model clearly sees both problems. My instruction to pick the department that fixes the blocking problem probably helped push it toward Account access. In the lab example, answers with a confidence below 0.8 are sent to a person for review. 0.83 is just above that, so this message would still be routed automatically, but it is the one closest to needing a person. In a real support system both teams would probably be needed: Account access to get the customer logged in again, and Billing to refund the extra charges.</p>
 </li>
 <li><p>The confidence was 1.0 for the clear messages and lower for the unclear ones (0.91 for message 4, 0.83 for message 5). For these two it was also a little lower than the top probability (0.91 vs 0.93, 0.83 vs 0.87), so confidence is a separate number, not just the highest probability, and it tracks how clear the message is.</p>
 </li>
