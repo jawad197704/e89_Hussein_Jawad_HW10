@@ -9,6 +9,7 @@
 | `Hussein_Jawad_HW10_Problem1.ipynb` / `.html` | Problem 1: English request to SQL with the OpenAI API, JSON response |
 | `Hussein_Jawad_HW10_Problem2.ipynb` / `.html` | Problem 2: DeepSeek-R1 running locally with Ollama, answer + chain of thought |
 | `Hussein_Jawad_HW10_Problem3.ipynb` / `.html` | Problem 3: streaming vs complete responses with the OpenAI API |
+| `Hussein_Jawad_HW10_Problem4.ipynb` | Problem 4: routing support messages with the Decisions API |
 | `requirements.txt` | Python packages |
 | `.env.example` | template for the `.env` file with the OpenAI API key (Problem 1) |
 
@@ -72,6 +73,10 @@ Same setup as Problem 1: it uses the same Drive folder and the same `.env` file.
 2. Open it in Colab. No GPU is needed: **Runtime → Change runtime type → CPU**.
 3. **Runtime → Run all**. The Drive cell asks for permission and should print `.env found : True`.
 4. **File → Download → Download .ipynb**.
+
+## Problem 4 - how to run it (Google Colab)
+
+Same as Problem 3: upload `Hussein_Jawad_HW10_Problem4.ipynb` to the same Drive folder (next to `.env`), open it in Colab, **Runtime → Run all**, then **File → Download → Download .ipynb**.
 
 ## Running locally (all problems)
 
