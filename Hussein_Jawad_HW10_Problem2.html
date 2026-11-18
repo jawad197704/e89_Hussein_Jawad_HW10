@@ -7802,22 +7802,18 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Assignment-10---Problem-2">Assignment 10 - Problem 2<a class="anchor-link" href="#Assignment-10---Problem-2">¶</a></h1><h2 id="Running-DeepSeek-R1-locally-with-Ollama">Running DeepSeek-R1 locally with Ollama<a class="anchor-link" href="#Running-DeepSeek-R1-locally-with-Ollama">¶</a></h2><p><strong>Name:</strong> Hussein Jawad</p>
-<p>The task: install Ollama, download (pull) the DeepSeek-R1 model, run it and check with <code>ollama ps</code> that it is running, then use <code>ollama.chat()</code> from Python to show that the model gives an answer together with its chain of thought.</p>
-<p>The question I ask the model:</p>
-<blockquote>
-<p>"Explain the difference between the General and Special theory of relativity."</p>
-</blockquote>
-<p>Contents:</p>
-<ul>
-<li>Step 1 - Install Ollama</li>
-<li>Step 2 - Check my machine and choose the model size</li>
-<li>Step 3 - Pull the DeepSeek-R1 model</li>
-<li>Step 4 - Run the model and check it with <code>ollama ps</code></li>
-<li>Step 5 - Ask the question with <code>ollama.chat()</code> and show the chain of thought</li>
-<li>Observations</li>
-<li>Appendix - Concepts used in this problem</li>
-</ul>
+<h1 id="Assignment-10---Problem-2">Assignment 10 - Problem 2<a class="anchor-link" href="#Assignment-10---Problem-2">¶</a></h1><h2 id="DeepSeek-R1-on-my-own-computer-with-Ollama">DeepSeek-R1 on my own computer with Ollama<a class="anchor-link" href="#DeepSeek-R1-on-my-own-computer-with-Ollama">¶</a></h2><p><strong>Name:</strong> Hussein Jawad</p>
+<p>For this problem I installed Ollama on my PC, downloaded the DeepSeek-R1 model, checked with <code>ollama ps</code> that it was running, and then used <code>ollama.chat()</code> in Python to get an answer together with the model's chain of thought.</p>
+<p>My question for the model was: "Explain the difference between the General and Special theory of relativity."</p>
+<p>Steps:</p>
+<ol>
+<li>Install Ollama</li>
+<li>Check my machine and pick the model size</li>
+<li>Pull the model</li>
+<li>Run the model and check it with <code>ollama ps</code></li>
+<li>Ask the question with <code>ollama.chat()</code></li>
+</ol>
+<p>At the end are my observations and an appendix with the concepts.</p>
 </div>
 </div>
 </div>
@@ -7828,8 +7824,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-1---Install-Ollama">Step 1 - Install Ollama<a class="anchor-link" href="#Step-1---Install-Ollama">¶</a></h2><p>Ollama runs large language models on my own computer. I downloaded the installer from <a href="https://ollama.com/download">https://ollama.com/download</a> and ran it. After the install, Ollama runs in the background and listens on <code>http://localhost:11434</code>. Both the <code>ollama</code> command and the Python library talk to it there.</p>
-<p>I also install the Ollama Python library, which gives me <code>ollama.chat()</code>.</p>
+<h2 id="Step-1---Install-Ollama">Step 1 - Install Ollama<a class="anchor-link" href="#Step-1---Install-Ollama">¶</a></h2><p>I downloaded Ollama for Windows from <a href="https://ollama.com/download">https://ollama.com/download</a> and installed it. It runs in the background as a local server at <code>http://localhost:11434</code>, and both the <code>ollama</code> command and the Python library connect to it.</p>
+<p>I also installed the <code>ollama</code> Python library (for <code>ollama.chat()</code>) and <code>psutil</code> to check my memory.</p>
 </div>
 </div>
 </div>
@@ -7868,7 +7864,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Check that Ollama is installed (the <code>!</code> runs a terminal command from the notebook):</p>
+<p>Checking that Ollama is installed (the <code>!</code> runs a terminal command from the notebook):</p>
 </div>
 </div>
 </div>
@@ -7907,7 +7903,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-2---Check-my-machine-and-choose-the-model-size">Step 2 - Check my machine and choose the model size<a class="anchor-link" href="#Step-2---Check-my-machine-and-choose-the-model-size">¶</a></h2><p>DeepSeek-R1 comes in several sizes (1.5b, 7b, 8b, 14b, 32b, 70b, 671b; b = billions of parameters). From the lab, the rule of thumb is that I need at least as much free memory (RAM, or GPU memory for speed) as the size of the download, plus some extra for the context. <code>deepseek-r1:8b</code> is a 5.2 GB download, so a computer with about 8 GB of RAM or more can run it.</p>
+<h2 id="Step-2---Check-my-machine-and-pick-the-model-size">Step 2 - Check my machine and pick the model size<a class="anchor-link" href="#Step-2---Check-my-machine-and-pick-the-model-size">¶</a></h2><p>DeepSeek-R1 comes in different sizes (1.5b, 7b, 8b, 14b, 32b, 70b and 671b, where b means billion parameters). The lab says you need about as much memory as the download size, plus some extra. The 8b model is a 5.2 GB download, so a PC with 8 GB of RAM or more should be able to run it.</p>
 </div>
 </div>
 </div>
@@ -7962,7 +7958,7 @@ GPU             : no NVIDIA GPU found (the model will run on the CPU, which is s
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>My PC has 16.8 GB of RAM and no NVIDIA GPU, so the model runs on the CPU. 16.8 GB is enough for the 8b model, so I used <code>deepseek-r1:8b</code>, the size the assignment recommends. The bigger models (14b is about a 9 GB download, 32b about 20 GB) would be even slower on a CPU or wouldn't fit. Only 2.0 GB of RAM was free at that moment because other programs were open, but the model still loaded in Step 4.</p>
+<p>My PC has 16.8 GB of RAM and no NVIDIA GPU, so the model has to run on the CPU. 16.8 GB is enough for the 8b model, which is also the size the assignment suggests, so I went with <code>deepseek-r1:8b</code>. The bigger ones (14b is about 9 GB, 32b about 20 GB) would be too slow on a CPU or wouldn't fit. Only 2.0 GB was free when I ran this because I had other programs open, but the model still loaded fine in Step 4.</p>
 </div>
 </div>
 </div>
@@ -8001,7 +7997,7 @@ GPU             : no NVIDIA GPU found (the model will run on the CPU, which is s
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-3---Pull-the-DeepSeek-R1-model">Step 3 - Pull the DeepSeek-R1 model<a class="anchor-link" href="#Step-3---Pull-the-DeepSeek-R1-model">¶</a></h2><p><code>ollama.pull()</code> downloads the model, the same as <code>ollama pull deepseek-r1:8b</code> in a terminal. The first time it downloads about 5.2 GB. If the model is already on the computer, it only checks it. I print each stage once to keep the output short.</p>
+<h2 id="Step-3---Pull-the-model">Step 3 - Pull the model<a class="anchor-link" href="#Step-3---Pull-the-model">¶</a></h2><p><code>ollama.pull()</code> does the same thing as <code>ollama pull deepseek-r1:8b</code> in the terminal. The first time it downloads about 5.2 GB, and after that it just checks that the model is there. I print each stage only once so the output stays short.</p>
 </div>
 </div>
 </div>
@@ -8054,7 +8050,7 @@ success
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-4---Run-the-model-and-check-it-with-ollama-ps">Step 4 - Run the model and check it with <code>ollama ps</code><a class="anchor-link" href="#Step-4---Run-the-model-and-check-it-with-ollama-ps">¶</a></h2><p>Sending an empty prompt loads the model into memory without asking it anything. <code>keep_alive="30m"</code> keeps it loaded for 30 minutes (the default is 5), so it is still running for the question in Step 5. Then <code>ollama ps</code> shows which models are running.</p>
+<h2 id="Step-4---Run-the-model-and-check-it-with-ollama-ps">Step 4 - Run the model and check it with <code>ollama ps</code><a class="anchor-link" href="#Step-4---Run-the-model-and-check-it-with-ollama-ps">¶</a></h2><p>To load the model without asking it anything, I send an empty prompt. I set <code>keep_alive="30m"</code> so it stays loaded for 30 minutes instead of the default 5, which means it is still in memory for Step 5. Then I run <code>ollama ps</code> to see what is running.</p>
 </div>
 </div>
 </div>
@@ -8101,13 +8097,7 @@ deepseek-r1:8b    6995872bfe4c    5.9 GB    100% CPU     4096       llamacpp    
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>ollama ps</code> shows that <code>deepseek-r1:8b</code> is running:</p>
-<ul>
-<li><strong>SIZE 5.9 GB:</strong> memory in use, more than the 5.2 GB download because it includes memory for the context</li>
-<li><strong>PROCESSOR 100% CPU:</strong> the whole model runs on the CPU, because my PC has no NVIDIA GPU</li>
-<li><strong>CONTEXT 4096:</strong> the model can look at 4,096 tokens</li>
-<li><strong>UNTIL 29 minutes from now:</strong> it stays loaded because of <code>keep_alive="30m"</code></li>
-</ul>
+<p><code>ollama ps</code> shows that <code>deepseek-r1:8b</code> is running. It uses 5.9 GB of memory, which is more than the 5.2 GB download because the context also needs memory. PROCESSOR says 100% CPU because I don't have an NVIDIA GPU. The context is 4096 tokens, and the model stays loaded for another 29 minutes because of <code>keep_alive</code>.</p>
 </div>
 </div>
 </div>
@@ -8118,12 +8108,12 @@ deepseek-r1:8b    6995872bfe4c    5.9 GB    100% CPU     4096       llamacpp    
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-5---Ask-the-question-with-ollama.chat()-and-show-the-chain-of-thought">Step 5 - Ask the question with <code>ollama.chat()</code> and show the chain of thought<a class="anchor-link" href="#Step-5---Ask-the-question-with-ollama.chat()-and-show-the-chain-of-thought">¶</a></h2><p><code>ollama.chat()</code> takes the model name and a list of messages. With <code>think=True</code>, DeepSeek-R1 returns its reasoning in a separate field:</p>
+<h2 id="Step-5---Ask-the-question-with-ollama.chat()">Step 5 - Ask the question with <code>ollama.chat()</code><a class="anchor-link" href="#Step-5---Ask-the-question-with-ollama.chat()">¶</a></h2><p><code>ollama.chat()</code> takes the model name and a list of messages. With <code>think=True</code>, DeepSeek-R1 gives back its reasoning in a separate field:</p>
 <ul>
-<li><code>response.message.thinking</code> - the chain of thought</li>
-<li><code>response.message.content</code> - the final answer</li>
+<li><code>response.message.thinking</code> is the chain of thought</li>
+<li><code>response.message.content</code> is the final answer</li>
 </ul>
-<p>The model first writes all of its thinking and then the answer, so this call takes a while. On my PC, which has no GPU, it took about 16 minutes.</p>
+<p>The model writes all of its thinking before it answers, so this takes a while. On my PC (no GPU) it took about 16 minutes.</p>
 </div>
 </div>
 </div>
@@ -8187,7 +8177,7 @@ Thinking kept apart : True
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="The-chain-of-thought">The chain of thought<a class="anchor-link" href="#The-chain-of-thought">¶</a></h3><p>The thinking is long, so I print the beginning and the end of it.</p>
+<h3 id="The-chain-of-thought">The chain of thought<a class="anchor-link" href="#The-chain-of-thought">¶</a></h3><p>The thinking is pretty long, so I only print the start and the end.</p>
 </div>
 </div>
 </div>
@@ -8346,17 +8336,24 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Observations">Observations<a class="anchor-link" href="#Observations">¶</a></h2><p><strong>Ollama and the model.</strong> Ollama 0.40.16 is installed and running on my Windows 11 PC. <code>ollama.pull()</code> finished with <code>success</code>, so <code>deepseek-r1:8b</code> (5.2 GB) is on my PC.</p>
-<p><strong>The model is running.</strong> After it loaded (17.2 s), <code>ollama ps</code> listed <code>deepseek-r1:8b</code> with 5.9 GB in memory, <code>100% CPU</code>, a 4,096-token context and 29 minutes left before it unloads.</p>
-<p><strong>Speed.</strong> The question took 981.5 s (about 16 minutes). The model generated 2,193 tokens at 2.3 tokens per second, so almost all of the time went into writing them (2,193 / 2.3 ≈ 950 s). It is slow because the model runs only on the CPU and, as a reasoning model, it writes its thinking before the answer. A GPU, or the smaller <code>deepseek-r1:1.5b</code>, would be much faster. Closing other programs first would also leave more memory free (only 2.0 GB was free in Step 2).</p>
-<p><strong>Chain of thought.</strong> <code>think=True</code> returned the reasoning separately: 4,174 characters in <code>message.thinking</code> and 6,366 characters in <code>message.content</code>, with no <code>&lt;think&gt;</code> tags in the answer (the check printed <code>True</code>). The thinking reads like a plan. The model recalls the main idea (special relativity = constant speed and no gravity; general relativity adds gravity and acceleration), guesses who is asking (probably a student), and plans the structure: each theory on its own, then a comparison. The final answer follows that plan, with a section for each theory and a summary table. The thinking also mentions examples it wanted to use (muons, an elevator, a trampoline), but none of them appear in the final answer. So the chain of thought is a plan, not an exact script of the answer.</p>
-<p><strong>Is the answer correct?</strong> Mostly yes. Compared with the table in the appendix, it has nearly all the main points (it doesn't mention black holes): the two postulates of special relativity, time dilation, length contraction, E = mc² and flat spacetime. For general relativity it covers the equivalence principle, gravity as curved spacetime, light bending (1919 eclipse), gravitational time dilation (GPS), Mercury's orbit and gravitational waves. Three things are simplified:</p>
+<h2 id="Observations">Observations<a class="anchor-link" href="#Observations">¶</a></h2><ol>
+<li><p>Ollama 0.40.16 is installed on my Windows 11 PC, and the pull finished with <code>success</code>, so <code>deepseek-r1:8b</code> (5.2 GB) is on my computer.</p>
+</li>
+<li><p>The model is running. It took 17.2 seconds to load, and <code>ollama ps</code> showed it with 5.9 GB in memory and 100% CPU.</p>
+</li>
+<li><p>It was very slow. The answer took 981.5 seconds, about 16 minutes. The model generated 2,193 tokens at only 2.3 tokens per second, so almost all of that time was spent generating text. I think the main reasons are that it runs only on my CPU, and that a reasoning model writes a lot of thinking before the actual answer. With a GPU, or with the smaller 1.5b model, it would be a lot faster. I also only had 2.0 GB of RAM free, so closing other programs first might help a bit.</p>
+</li>
+<li><p>The chain of thought really came back separately from the answer: 4,174 characters of thinking and 6,366 characters of answer, and the check printed <code>True</code> (no <code>&lt;think&gt;</code> tags in the answer). When I read the thinking, it is basically the model planning its answer. It starts with what it knows (special relativity is about constant speed with no gravity, general relativity adds gravity and acceleration), guesses that I'm probably a student, and decides to explain each theory first and then compare them. The final answer follows that plan. One thing I noticed is that it talks about using muons, an elevator and a trampoline as examples, but none of those show up in the final answer. So the thinking is more like a rough plan than an exact draft.</p>
+</li>
+<li><p>I compared the answer with the summary in the appendix, and it is mostly right. For special relativity it covers the two postulates, time dilation, length contraction, E = mc² and flat spacetime. For general relativity it covers the equivalence principle, curved spacetime, light bending (the 1919 eclipse), gravitational time dilation (GPS), Mercury's orbit and gravitational waves. It doesn't mention black holes. A few things are a bit simplified:</p>
 <ul>
-<li>It says special relativity "doesn't handle" accelerating frames. That is a common simplification: special relativity can describe accelerating objects. What it can't describe is gravity, so the real difference is flat spacetime (special) vs curved spacetime (general).</li>
-<li>It writes the field equations as Gᵘᵛ = 8πTᵘᵛ, which is only true in units where G = c = 1. Normally they are G<sub>μν</sub> = (8πG / c⁴) T<sub>μν</sub>.</li>
-<li>Its airplane-clock example only counts the speed effect. At cruising altitude gravity is weaker, which makes the clock run faster, so in real measurements (the Hafele-Keating experiment, 1971) the result depended on the direction of the flight.</li>
+<li>It says special relativity can't handle acceleration. Special relativity can actually describe accelerating objects; what it can't describe is gravity. The real difference is flat vs curved spacetime.</li>
+<li>It writes Einstein's field equations as Gᵘᵛ = 8πTᵘᵛ, which leaves out the constants G and c.</li>
+<li>The airplane clock example only looks at speed. Higher up, gravity is weaker, which makes clocks run a little faster, so in real experiments the result depended on which direction the plane flew.</li>
 </ul>
-<p><strong>Conclusion.</strong> DeepSeek-R1 runs locally with Ollama, <code>ollama ps</code> confirms that it is loaded, and <code>ollama.chat()</code> returns both the chain of thought and the final answer. On a PC without a GPU it works, but it is slow: about 16 minutes for one answer.</p>
+</li>
+</ol>
+<p>Overall, DeepSeek-R1 works locally with Ollama, <code>ollama ps</code> shows it running, and <code>ollama.chat()</code> gives back both the chain of thought and the answer. On a PC without a GPU it works, just slowly.</p>
 </div>
 </div>
 </div>
@@ -8367,44 +8364,20 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><h3 id="1.-Running-a-model-locally">1. Running a model locally<a class="anchor-link" href="#1.-Running-a-model-locally">¶</a></h3><p><strong>Ollama.</strong> A program that downloads and runs open LLMs on my own computer. It runs a small server on <code>http://localhost:11434</code>; the <code>ollama</code> command, <code>curl</code> and the Python library all send their requests there. Nothing leaves my computer, and there is no API key and no cost per request.</p>
-<p><strong>Model name and tag.</strong> <code>deepseek-r1:8b</code> = model <code>deepseek-r1</code>, tag <code>8b</code> (8 billion parameters). A name without a tag means <code>:latest</code>.</p>
-<p><em>Here:</em> <code>deepseek-r1:8b</code>, 5.2 GB on disk.</p>
-<p><strong>Distilled models.</strong> The full DeepSeek-R1 has 671B parameters, far too big for a laptop. The smaller versions (1.5b to 70b) are <em>distilled</em>: smaller open models trained to copy the reasoning of the big one.</p>
-<p><strong>Quantization.</strong> Storing each weight with fewer bits (Ollama models use about 4 bits by default). That is why an 8B model is only about a 5 GB download instead of about 16 GB at 16 bits per weight.</p>
-<p><strong>Memory, GPU and CPU.</strong> The whole model has to fit in memory. If it fits in GPU memory it runs fast; if not, part of it runs on the CPU, which is much slower.</p>
-<p><em>Here:</em> my PC has no NVIDIA GPU, so <code>ollama ps</code> showed <code>100% CPU</code> and the model ran at 2.3 tokens/s.</p>
-<h3 id="2.-The-commands-I-used">2. The commands I used<a class="anchor-link" href="#2.-The-commands-I-used">¶</a></h3><table>
-<thead>
-<tr>
-<th>Command</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ollama --version</code></td>
-<td>shows that Ollama is installed</td>
-</tr>
-<tr>
-<td><code>ollama pull &lt;model&gt;</code> / <code>ollama.pull()</code></td>
-<td>downloads a model</td>
-</tr>
-<tr>
-<td><code>ollama ps</code></td>
-<td>lists the models loaded in memory right now</td>
-</tr>
-<tr>
-<td><code>ollama.generate(model, prompt="")</code></td>
-<td>loads a model without asking anything</td>
-</tr>
-<tr>
-<td><code>ollama.chat(model, messages, think=True)</code></td>
-<td>asks a question and returns thinking + answer</td>
-</tr>
-</tbody>
-</table>
-<p>How to read <code>ollama ps</code>:</p>
+<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><p><strong>Ollama</strong> - a program that runs open LLMs on your own computer. It runs a local server on <code>http://localhost:11434</code>, and the <code>ollama</code> command and the Python library both send their requests there. Nothing leaves the computer, and there is no API key or cost.</p>
+<p><strong>Model tags</strong> - in <code>deepseek-r1:8b</code>, <code>8b</code> is the tag and means 8 billion parameters. If you leave the tag out, Ollama uses <code>:latest</code>.</p>
+<p><strong>Distilled models</strong> - the full DeepSeek-R1 has 671B parameters, which is way too big for a normal PC. The smaller versions (1.5b to 70b) are smaller models trained to copy how the big one reasons.</p>
+<p><strong>Quantization</strong> - storing the weights with fewer bits (about 4 bits per weight in Ollama). That's why the 8b model is only a 5.2 GB download instead of around 16 GB.</p>
+<p><strong>CPU vs GPU</strong> - the model has to fit in memory. On a GPU it runs fast, on the CPU it is much slower. My PC has no GPU, so it ran 100% on the CPU at 2.3 tokens per second.</p>
+<p><strong>Commands I used</strong></p>
+<ul>
+<li><code>ollama --version</code> - check that Ollama is installed</li>
+<li><code>ollama.pull()</code> (same as <code>ollama pull</code>) - download the model</li>
+<li><code>ollama.generate(model, prompt="")</code> - load the model without asking anything</li>
+<li><code>ollama ps</code> - show which models are loaded right now</li>
+<li><code>ollama.chat(model, messages, think=True)</code> - ask a question and get the thinking and the answer separately</li>
+</ul>
+<p><strong>Reading <code>ollama ps</code></strong></p>
 <table>
 <thead>
 <tr>
@@ -8419,11 +8392,11 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </tr>
 <tr>
 <td>SIZE</td>
-<td>memory used: the weights plus memory for the context, so more than the download size</td>
+<td>memory used (weights + context), so more than the download</td>
 </tr>
 <tr>
 <td>PROCESSOR</td>
-<td><code>100% GPU</code> = all on the GPU (fast); a CPU share means part of it runs on the CPU (slower)</td>
+<td>how much runs on the GPU vs the CPU</td>
 </tr>
 <tr>
 <td>CONTEXT</td>
@@ -8431,46 +8404,22 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </tr>
 <tr>
 <td>RUNNER</td>
-<td>the engine that runs the model (here <code>llamacpp</code>, i.e. llama.cpp)</td>
+<td>the engine that runs the model (llama.cpp)</td>
 </tr>
 <tr>
 <td>UNTIL</td>
-<td>when Ollama will unload the model (<code>keep_alive</code>, 5 minutes by default)</td>
+<td>when Ollama unloads the model (5 minutes by default, or whatever <code>keep_alive</code> says)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="3.-Reasoning-and-the-chain-of-thought">3. Reasoning and the chain of thought<a class="anchor-link" href="#3.-Reasoning-and-the-chain-of-thought">¶</a></h3><p><strong>Reasoning model.</strong> DeepSeek-R1 is trained to "think out loud" before it answers: it writes a chain of thought (working out the problem step by step, checking itself), and then the final answer. This often makes answers better on harder questions, but it costs many extra tokens, so it is slower.</p>
-<p><strong><code>think=True</code>.</strong> Tells Ollama to return the thinking in <code>message.thinking</code> and only the answer in <code>message.content</code>. Older versions put the thinking inside <code>&lt;think&gt;...&lt;/think&gt;</code> tags in the content.</p>
-<p><strong>Response numbers.</strong> <code>prompt_eval_count</code> = tokens in my question, <code>eval_count</code> = tokens the model generated (thinking + answer), <code>eval_duration</code> and <code>total_duration</code> are in nanoseconds. Speed = <code>eval_count / (eval_duration / 10^9)</code> tokens per second.</p>
-<p><em>Here:</em> 17 prompt tokens, 2,193 generated tokens, 2.3 tokens/s, 981.5 s in total.</p>
-<h3 id="4.-The-question:-Special-vs-General-relativity">4. The question: Special vs General relativity<a class="anchor-link" href="#4.-The-question:-Special-vs-General-relativity">¶</a></h3><p>To judge whether the model's answer is right, the main points are:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Special relativity (1905)</th>
-<th>General relativity (1915)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Covers</td>
-<td>flat spacetime: no gravity. Usually described from frames moving at constant velocity (inertial frames), but it can also describe accelerating objects</td>
-<td>gravity, described as curved spacetime; works in any frame, including accelerating ones</td>
-</tr>
-<tr>
-<td>Key ideas</td>
-<td>the laws of physics are the same in all inertial frames; the speed of light is the same for every observer</td>
-<td>gravity is the curvature of spacetime caused by mass and energy; equivalence principle (gravity and acceleration feel the same)</td>
-</tr>
-<tr>
-<td>Results</td>
-<td>time dilation, length contraction, E = mc²</td>
-<td>light bending around the Sun, gravitational time dilation (GPS corrections), black holes, gravitational waves</td>
-</tr>
-</tbody>
-</table>
-<p>The main difference is flat vs curved spacetime. Special relativity is the special case of general relativity when gravity can be ignored.</p>
+<p><strong>Reasoning model and chain of thought</strong> - DeepSeek-R1 is trained to think step by step before it answers. That thinking is the chain of thought. It can make the answers better, but it adds a lot of tokens, so it's slower. With <code>think=True</code>, Ollama puts the thinking in <code>message.thinking</code> and only the answer in <code>message.content</code> (older versions mixed them together with <code>&lt;think&gt;</code> tags).</p>
+<p><strong>Response numbers</strong> - <code>prompt_eval_count</code> is the number of tokens in my question (17), <code>eval_count</code> is the number of tokens the model generated (2,193), and the durations are in nanoseconds. Speed = <code>eval_count / (eval_duration / 10^9)</code>, which gave 2.3 tokens/s.</p>
+<p><strong>Special vs General relativity</strong> (to check the model's answer)</p>
+<ul>
+<li>Special relativity (1905): flat spacetime, no gravity. The laws of physics are the same for observers moving at constant speed, and the speed of light is the same for everyone. Results: time dilation, length contraction, E = mc².</li>
+<li>General relativity (1915): gravity is the curvature of spacetime caused by mass and energy, and gravity and acceleration feel the same (equivalence principle). Results: light bending around the Sun, clocks running slower in strong gravity (GPS has to correct for this), black holes, gravitational waves.</li>
+<li>Special relativity is the case of general relativity where gravity can be ignored.</li>
+</ul>
 </div>
 </div>
 </div>
