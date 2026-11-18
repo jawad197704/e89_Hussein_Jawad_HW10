@@ -1,4 +1,4 @@
-openai>=2.0
+openai>=3.54
 python-dotenv
 pandas
 ollama

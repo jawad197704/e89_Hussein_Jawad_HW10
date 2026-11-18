@@ -11,7 +11,7 @@
 | `Hussein_Jawad_HW10_Problem3.ipynb` / `.html` | Problem 3: streaming vs complete responses with the OpenAI API |
 | `Hussein_Jawad_HW10_Problem4.ipynb` / `.html` | Problem 4: routing support messages with the Decisions API |
 | `requirements.txt` | Python packages |
-| `.env.example` | template for the `.env` file with the OpenAI API key (Problem 1) |
+| `.env.example` | template for the `.env` file with the OpenAI API key (Problems 1, 3 and 4) |
 
 ## Problem 1 - how to run it (Google Colab)
 
@@ -47,7 +47,7 @@
    ```bash
    jupyter notebook Hussein_Jawad_HW10_Problem2.ipynb
    ```
-6. **Run all cells:** **Kernel → Restart Kernel and Run All Cells**. Step 5 (the question) can take one to a few minutes, because the model writes its whole chain of thought first.
+6. **Run all cells:** **Kernel → Restart Kernel and Run All Cells**. Step 5 (the question) can take several minutes, because the model writes its whole chain of thought first. On my PC without a GPU it took about 16 minutes.
 7. **Save** the notebook (Ctrl+S).
 8. **HTML version:**
    ```bash
