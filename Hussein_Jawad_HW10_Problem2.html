@@ -8395,7 +8395,7 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </tr>
 <tr>
 <td>Quantization</td>
-<td>Storing each weight with fewer bits. 8 billion weights × 16 bits ≈ 16 GB; × about 4 bits ≈ 5 GB.</td>
+<td>Storing each weight with fewer bits. 8 billion weights × 16 bits = 16 GB. Ollama stores them with about 4-5 bits each (some parts keep more), which gives about 5 GB.</td>
 <td>5.2 GB download</td>
 </tr>
 <tr>
@@ -8465,8 +8465,8 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </tr>
 <tr>
 <td>CONTEXT</td>
-<td>how many tokens the model can look at in one conversation</td>
-<td>4096</td>
+<td>how many tokens the model can handle at once: my question plus everything it writes</td>
+<td>4096 (my run used 17 + 2,193 = 2,210)</td>
 </tr>
 <tr>
 <td>RUNNER</td>

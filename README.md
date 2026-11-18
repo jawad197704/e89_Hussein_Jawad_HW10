@@ -52,7 +52,7 @@
    jupyter nbconvert --to html Hussein_Jawad_HW10_Problem2.ipynb
    ```
 
-If Step 2 in the notebook shows less than about 8 GB of RAM available, change `MODEL` to `"deepseek-r1:1.5b"` and pull that tag instead.
+If your PC has less than about 8 GB of RAM in total, change `MODEL` to `"deepseek-r1:1.5b"` and pull that tag instead.
 
 ### Troubleshooting
 
