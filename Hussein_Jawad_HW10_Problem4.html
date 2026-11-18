@@ -7945,15 +7945,15 @@ Key           : sk-...iIoA
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">DEPARTMENTS</span> <span class="o">=</span> <span class="p">[</span>                                                                              <span class="c1"># the four options</span>
-    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Billing"</span><span class="p">,</span>           <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Payments, invoices, refunds, and unexpected charges."</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Technical support"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Software errors or problems using the product."</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Account access"</span><span class="p">,</span>    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Login, password, and authentication problems."</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Other"</span><span class="p">,</span>             <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Requests outside the categories above."</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Billing"</span><span class="p">,</span>           <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Payments, invoices, refunds, and unexpected charges."</span><span class="p">},</span>   <span class="c1"># option 1</span>
+    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Technical support"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Software errors or problems using the product."</span><span class="p">},</span>        <span class="c1"># option 2</span>
+    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Account access"</span><span class="p">,</span>    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Login, password, and authentication problems."</span><span class="p">},</span>          <span class="c1"># option 3</span>
+    <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Other"</span><span class="p">,</span>             <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Requests outside the categories above."</span><span class="p">},</span>                 <span class="c1"># option 4 (fallback)</span>
 <span class="p">]</span>
 
 <span class="n">INSTRUCTIONS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"Which department should handle this customer-support message? "</span>         <span class="c1"># the question</span>
                 <span class="s2">"If the message involves more than one department, choose the department "</span>  <span class="c1"># how to handle overlap</span>
-                <span class="s2">"that can fix the problem that is blocking the customer."</span><span class="p">)</span>
+                <span class="s2">"that can fix the problem that is blocking the customer."</span><span class="p">)</span>                   <span class="c1"># (end of the text)</span>
 </pre></div>
 </div>
 </div>
@@ -7986,7 +7986,7 @@ Key           : sk-...iIoA
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_support_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
     <span class="c1"># Ask the Decisions API which department should handle the message</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">decisions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">decisions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>               <span class="c1"># call the Decisions API</span>
         <span class="n">model</span><span class="o">=</span><span class="n">DECISION_MODEL</span><span class="p">,</span>                       <span class="c1"># gpt-6-luna</span>
         <span class="nb">input</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>                              <span class="c1"># the customer's message is the evidence</span>
         <span class="n">questions</span><span class="o">=</span><span class="p">[{</span>                                <span class="c1"># one question ...</span>
@@ -8000,7 +8000,7 @@ Key           : sk-...iIoA
 
     <span class="k">if</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"refusal"</span><span class="p">:</span>                    <span class="c1"># the API refused to judge this message</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span> <span class="s2">"department"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"confidence"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>     <span class="c1"># no decision</span>
-                <span class="s2">"probabilities"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"refused"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+                <span class="s2">"probabilities"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"refused"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>                     <span class="c1"># and mark it as refused</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span>                                                  <span class="c1"># the message</span>
             <span class="s2">"department"</span><span class="p">:</span> <span class="n">answer</span><span class="o">.</span><span class="n">choice</span><span class="p">,</span>                                         <span class="c1"># the chosen department</span>
@@ -8073,11 +8073,11 @@ Key           : sk-...iIoA
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>                                                                       <span class="c1"># the test messages from the assignment</span>
-    <span class="s2">"I was charged twice for my subscription this month."</span><span class="p">,</span>
-    <span class="s2">"The application crashes whenever I upload a PDF."</span><span class="p">,</span>
-    <span class="s2">"I lost my phone and cannot receive my login verification code."</span><span class="p">,</span>
-    <span class="s2">"Do you offer discounts for university students?"</span><span class="p">,</span>
-    <span class="s2">"I cannot log in to cancel my subscription, and I keep getting charged."</span><span class="p">,</span>
+    <span class="s2">"I was charged twice for my subscription this month."</span><span class="p">,</span>                       <span class="c1"># message 1</span>
+    <span class="s2">"The application crashes whenever I upload a PDF."</span><span class="p">,</span>                          <span class="c1"># message 2</span>
+    <span class="s2">"I lost my phone and cannot receive my login verification code."</span><span class="p">,</span>            <span class="c1"># message 3</span>
+    <span class="s2">"Do you offer discounts for university students?"</span><span class="p">,</span>                           <span class="c1"># message 4</span>
+    <span class="s2">"I cannot log in to cancel my subscription, and I keep getting charged."</span><span class="p">,</span>    <span class="c1"># message 5</span>
 <span class="p">]</span>
 
 <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Billing"</span><span class="p">,</span> <span class="s2">"Technical support"</span><span class="p">,</span> <span class="s2">"Account access"</span><span class="p">,</span> <span class="s2">"Other"</span><span class="p">,</span> <span class="s2">"Account access"</span><span class="p">]</span>   <span class="c1"># my labels, fixed before running</span>
@@ -8367,12 +8367,12 @@ Message 5:
 </tr>
 <tr>
 <td>Can it answer something outside my list?</td>
-<td>yes (typos, extra words, a new category)</td>
+<td>yes with free text (typos, extra words, a new category), unless I force a format with Structured Outputs</td>
 <td>no, <code>choice</code> is always one of my values</td>
 </tr>
 <tr>
 <td>Probabilities</td>
-<td>no</td>
+<td>not per option (only token log-probabilities)</td>
 <td>yes, one per option</td>
 </tr>
 <tr>
