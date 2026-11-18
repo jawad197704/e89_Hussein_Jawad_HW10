@@ -8364,62 +8364,215 @@ Think of it this way: SR tells you how space and time behave locally when there'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><p><strong>Ollama</strong> - a program that runs open LLMs on your own computer. It runs a local server on <code>http://localhost:11434</code>, and the <code>ollama</code> command and the Python library both send their requests there. Nothing leaves the computer, and there is no API key or cost.</p>
-<p><strong>Model tags</strong> - in <code>deepseek-r1:8b</code>, <code>8b</code> is the tag and means 8 billion parameters. If you leave the tag out, Ollama uses <code>:latest</code>.</p>
-<p><strong>Distilled models</strong> - the full DeepSeek-R1 has 671B parameters, which is way too big for a normal PC. The smaller versions (1.5b to 70b) are smaller models trained to copy how the big one reasons.</p>
-<p><strong>Quantization</strong> - storing the weights with fewer bits (about 4 bits per weight in Ollama). That's why the 8b model is only a 5.2 GB download instead of around 16 GB.</p>
-<p><strong>CPU vs GPU</strong> - the model has to fit in memory. On a GPU it runs fast, on the CPU it is much slower. My PC has no GPU, so it ran 100% on the CPU at 2.3 tokens per second.</p>
-<p><strong>Commands I used</strong></p>
-<ul>
-<li><code>ollama --version</code> - check that Ollama is installed</li>
-<li><code>ollama.pull()</code> (same as <code>ollama pull</code>) - download the model</li>
-<li><code>ollama.generate(model, prompt="")</code> - load the model without asking anything</li>
-<li><code>ollama ps</code> - show which models are loaded right now</li>
-<li><code>ollama.chat(model, messages, think=True)</code> - ask a question and get the thinking and the answer separately</li>
-</ul>
-<p><strong>Reading <code>ollama ps</code></strong></p>
+<h2 id="Appendix---Concepts-used-in-this-problem">Appendix - Concepts used in this problem<a class="anchor-link" href="#Appendix---Concepts-used-in-this-problem">¶</a></h2><h3 id="1.-How-the-pieces-fit-together">1. How the pieces fit together<a class="anchor-link" href="#1.-How-the-pieces-fit-together">¶</a></h3><pre><code> notebook: ollama.chat(), ollama.pull() ──┐
+                                          ├─▶  Ollama server  ─▶  deepseek-r1:8b
+ terminal: ollama ps, ollama --version ───┘   localhost:11434     in memory, on my CPU
+</code></pre>
+<p>Ollama is a program that runs open LLMs on my own computer. It starts a small server on <code>http://localhost:11434</code>. The <code>ollama</code> terminal command and the Python library are just two ways of sending requests to that server. After the model is downloaded, everything runs on my PC: no internet, no API key and no cost per question.</p>
+<h3 id="2.-The-model">2. The model<a class="anchor-link" href="#2.-The-model">¶</a></h3><table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it means</th>
+<th>In my run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parameters</td>
+<td>The numbers (weights) the model learned during training. More parameters usually means better answers, but more memory and slower.</td>
+<td>8 billion</td>
+</tr>
+<tr>
+<td>Name and tag</td>
+<td><code>model:tag</code>. The tag picks the size. A name without a tag means <code>:latest</code>.</td>
+<td><code>deepseek-r1:8b</code></td>
+</tr>
+<tr>
+<td>Distilled model</td>
+<td>The full DeepSeek-R1 has 671B parameters, far too big for a PC. The smaller sizes are smaller models trained to copy how the big one reasons.</td>
+<td>the 8b distilled version</td>
+</tr>
+<tr>
+<td>Quantization</td>
+<td>Storing each weight with fewer bits. 8 billion weights × 16 bits ≈ 16 GB; × about 4 bits ≈ 5 GB.</td>
+<td>5.2 GB download</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>A piece of a word. The model reads and writes text as tokens.</td>
+<td>2,193 tokens generated</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3.-Memory,-CPU-and-GPU">3. Memory, CPU and GPU<a class="anchor-link" href="#3.-Memory,-CPU-and-GPU">¶</a></h3><p>The whole model has to fit in memory. To generate every single token, the computer has to do math with all of the weights. A GPU does that math in parallel and has much faster memory, so it is many times faster than a CPU. Without a GPU the model still works, just slowly.</p>
+<p>In my run: no NVIDIA GPU, so <code>ollama ps</code> showed <strong>100% CPU</strong> and the speed was <strong>2.3 tokens per second</strong>.</p>
+<h3 id="4.-The-commands-I-used">4. The commands I used<a class="anchor-link" href="#4.-The-commands-I-used">¶</a></h3><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ollama --version</code></td>
+<td>checks that Ollama is installed</td>
+</tr>
+<tr>
+<td><code>ollama.pull(model)</code> (= <code>ollama pull model</code>)</td>
+<td>downloads the model, or checks it if it is already there</td>
+</tr>
+<tr>
+<td><code>ollama.generate(model, prompt="", keep_alive="30m")</code></td>
+<td>loads the model into memory without asking anything</td>
+</tr>
+<tr>
+<td><code>ollama ps</code></td>
+<td>lists the models that are loaded in memory right now</td>
+</tr>
+<tr>
+<td><code>ollama.chat(model, messages, think=True)</code></td>
+<td>asks a question and returns the thinking and the answer separately</td>
+</tr>
+</tbody>
+</table>
+<p><code>keep_alive</code> is how long the model stays in memory after the last request (5 minutes by default). I used 30 minutes so it was still loaded for the question.</p>
+<p><strong>How to read <code>ollama ps</code>:</strong></p>
 <table>
 <thead>
 <tr>
 <th>Column</th>
-<th>Meaning</th>
+<th>What it means</th>
+<th>In my run</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>NAME</td>
 <td>the model that is loaded</td>
+<td><code>deepseek-r1:8b</code></td>
 </tr>
 <tr>
 <td>SIZE</td>
-<td>memory used (weights + context), so more than the download</td>
+<td>memory in use: the weights plus memory for the context, so more than the download</td>
+<td>5.9 GB</td>
 </tr>
 <tr>
 <td>PROCESSOR</td>
-<td>how much runs on the GPU vs the CPU</td>
+<td>how much runs on the GPU vs the CPU; <code>100% GPU</code> is fastest</td>
+<td>100% CPU</td>
 </tr>
 <tr>
 <td>CONTEXT</td>
-<td>how many tokens the model can look at</td>
+<td>how many tokens the model can look at in one conversation</td>
+<td>4096</td>
 </tr>
 <tr>
 <td>RUNNER</td>
-<td>the engine that runs the model (llama.cpp)</td>
+<td>the engine that runs the model</td>
+<td>llamacpp (llama.cpp)</td>
 </tr>
 <tr>
 <td>UNTIL</td>
-<td>when Ollama unloads the model (5 minutes by default, or whatever <code>keep_alive</code> says)</td>
+<td>when Ollama will unload the model (<code>keep_alive</code>)</td>
+<td>29 minutes from now</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Reasoning model and chain of thought</strong> - DeepSeek-R1 is trained to think step by step before it answers. That thinking is the chain of thought. It can make the answers better, but it adds a lot of tokens, so it's slower. With <code>think=True</code>, Ollama puts the thinking in <code>message.thinking</code> and only the answer in <code>message.content</code> (older versions mixed them together with <code>&lt;think&gt;</code> tags).</p>
-<p><strong>Response numbers</strong> - <code>prompt_eval_count</code> is the number of tokens in my question (17), <code>eval_count</code> is the number of tokens the model generated (2,193), and the durations are in nanoseconds. Speed = <code>eval_count / (eval_duration / 10^9)</code>, which gave 2.3 tokens/s.</p>
-<p><strong>Special vs General relativity</strong> (to check the model's answer)</p>
-<ul>
-<li>Special relativity (1905): flat spacetime, no gravity. The laws of physics are the same for observers moving at constant speed, and the speed of light is the same for everyone. Results: time dilation, length contraction, E = mc².</li>
-<li>General relativity (1915): gravity is the curvature of spacetime caused by mass and energy, and gravity and acceleration feel the same (equivalence principle). Results: light bending around the Sun, clocks running slower in strong gravity (GPS has to correct for this), black holes, gravitational waves.</li>
-<li>Special relativity is the case of general relativity where gravity can be ignored.</li>
-</ul>
+<h3 id="5.-Reasoning-models-and-the-chain-of-thought">5. Reasoning models and the chain of thought<a class="anchor-link" href="#5.-Reasoning-models-and-the-chain-of-thought">¶</a></h3><p>A normal model starts writing the answer right away. A <strong>reasoning model</strong> like DeepSeek-R1 first writes a <strong>chain of thought</strong>: it thinks through the problem step by step, plans the answer and checks itself, and only then writes the final answer. This can make answers better, but all the thinking is extra tokens, so it is slower.</p>
+<p>With <code>think=True</code>, Ollama returns the two parts separately:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it holds</th>
+<th>In my run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>response.message.thinking</code></td>
+<td>the chain of thought</td>
+<td>4,174 characters</td>
+</tr>
+<tr>
+<td><code>response.message.content</code></td>
+<td>the final answer only</td>
+<td>6,366 characters</td>
+</tr>
+</tbody>
+</table>
+<p>Older Ollama versions put both parts into <code>content</code>, with the thinking between <code>&lt;think&gt;</code> and <code>&lt;/think&gt;</code> tags.</p>
+<h3 id="6.-The-numbers-in-the-response">6. The numbers in the response<a class="anchor-link" href="#6.-The-numbers-in-the-response">¶</a></h3><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it means</th>
+<th>In my run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prompt_eval_count</code></td>
+<td>tokens in my question</td>
+<td>17</td>
+</tr>
+<tr>
+<td><code>eval_count</code></td>
+<td>tokens the model generated (thinking + answer)</td>
+<td>2,193</td>
+</tr>
+<tr>
+<td><code>eval_duration</code></td>
+<td>time spent generating, in nanoseconds (1 s = 10⁹ ns)</td>
+<td>about 950 s</td>
+</tr>
+<tr>
+<td>speed</td>
+<td><code>eval_count / (eval_duration / 10⁹)</code></td>
+<td>2.3 tokens/s</td>
+</tr>
+<tr>
+<td>time</td>
+<td>whole call, measured with <code>time.time()</code></td>
+<td>981.5 s (about 16 min)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7.-The-question:-Special-vs-General-relativity">7. The question: Special vs General relativity<a class="anchor-link" href="#7.-The-question:-Special-vs-General-relativity">¶</a></h3><p>The summary I used to check the model's answer:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Special relativity (1905)</th>
+<th>General relativity (1915)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spacetime</td>
+<td>flat</td>
+<td>curved by mass and energy</td>
+</tr>
+<tr>
+<td>Gravity</td>
+<td>not included</td>
+<td>gravity <em>is</em> the curvature of spacetime</td>
+</tr>
+<tr>
+<td>Main ideas</td>
+<td>the laws of physics are the same for observers moving at constant speed; the speed of light is the same for every observer</td>
+<td>equivalence principle: gravity and acceleration feel the same</td>
+</tr>
+<tr>
+<td>Results</td>
+<td>time dilation, length contraction, E = mc²</td>
+<td>light bending around the Sun, clocks running slower in strong gravity (GPS corrects for it), black holes, gravitational waves</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The main difference is flat vs curved spacetime.</strong> Special relativity can describe moving and even accelerating objects, but not gravity. Special relativity is the special case of general relativity when gravity can be ignored.</p>
 </div>
 </div>
 </div>
