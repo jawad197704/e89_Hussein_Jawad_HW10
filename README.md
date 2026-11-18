@@ -8,6 +8,7 @@
 |---|---|
 | `Hussein_Jawad_HW10_Problem1.ipynb` / `.html` | Problem 1: English request to SQL with the OpenAI API, JSON response |
 | `Hussein_Jawad_HW10_Problem2.ipynb` / `.html` | Problem 2: DeepSeek-R1 running locally with Ollama, answer + chain of thought |
+| `Hussein_Jawad_HW10_Problem3.ipynb` | Problem 3: streaming vs complete responses with the OpenAI API |
 | `requirements.txt` | Python packages |
 | `.env.example` | template for the `.env` file with the OpenAI API key (Problem 1) |
 
@@ -63,7 +64,16 @@ If your PC has less than about 8 GB of RAM in total, change `MODEL` to `"deepsee
 | `ollama ps` shows a large CPU share, very slow answer | The model doesn't fit in GPU memory. It still works, just slower; or use `deepseek-r1:1.5b` |
 | `model "deepseek-r1:8b" not found` | Run the pull step again |
 
-## Running locally (both problems)
+## Problem 3 - how to run it (Google Colab)
+
+Same setup as Problem 1: it uses the same Drive folder and the same `.env` file.
+
+1. Upload `Hussein_Jawad_HW10_Problem3.ipynb` to `MyDrive/CSCI-E-89-1-Deep-Learning/HW10` (next to `.env`).
+2. Open it in Colab. No GPU is needed: **Runtime → Change runtime type → CPU**.
+3. **Runtime → Run all**. The Drive cell asks for permission and should print `.env found : True`.
+4. **File → Download → Download .ipynb**.
+
+## Running locally (all problems)
 
 ```bash
 pip install -r requirements.txt
