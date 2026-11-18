@@ -7,7 +7,7 @@
 | File | Problem |
 |---|---|
 | `Hussein_Jawad_HW10_Problem1.ipynb` / `.html` | Problem 1: English request to SQL with the OpenAI API, JSON response |
-| `Hussein_Jawad_HW10_Problem2.ipynb` | Problem 2: DeepSeek-R1 running locally with Ollama, answer + chain of thought |
+| `Hussein_Jawad_HW10_Problem2.ipynb` / `.html` | Problem 2: DeepSeek-R1 running locally with Ollama, answer + chain of thought |
 | `requirements.txt` | Python packages |
 | `.env.example` | template for the `.env` file with the OpenAI API key (Problem 1) |
 
